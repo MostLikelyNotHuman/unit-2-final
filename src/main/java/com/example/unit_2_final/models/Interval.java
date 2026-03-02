@@ -5,25 +5,28 @@ import jakarta.persistence.*;
 @Entity
 public class Interval {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private int size;
     private String name;
     private String imageURL;
 
-    public Interval(String name, int size, String imageURL) {
-        this.name = name;
+    public Interval(int id, int size, String name, String imageURL) {
+        this.id = id;
         this.size = size;
+        this.name = name;
         this.imageURL = imageURL;
     }
 
     public Interval() {
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getSize() {
@@ -32,6 +35,14 @@ public class Interval {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImageURL() {

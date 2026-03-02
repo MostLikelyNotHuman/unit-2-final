@@ -11,10 +11,10 @@ public class Account {
     private int id;
     private String username;
     private String password;
-    private List<Object> noteReview;
-    private List<Object> intervalReview;
+    private List<Note> noteReview;
+    private List<Interval> intervalReview;
 
-    public Account(int id, String username, String password, List<Object> noteReview, List<Object> intervalReview) {
+    public Account(int id, String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -49,19 +49,19 @@ public class Account {
         this.password = password;
     }
 
-    public List<Object> getNoteReview() {
+    public List<Note> getNoteReview() {
         return noteReview;
     }
 
-    public void setNoteReview(List<Object> noteReview) {
+    public void setNoteReview(List<Note> noteReview) {
         this.noteReview = noteReview;
     }
 
-    public List<Object> getIntervalReview() {
+    public List<Interval> getIntervalReview() {
         return intervalReview;
     }
 
-    public void setIntervalReview(List<Object> intervalReview) {
+    public void setIntervalReview(List<Interval> intervalReview) {
         this.intervalReview = intervalReview;
     }
 }

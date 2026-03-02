@@ -2,7 +2,6 @@ package com.example.unit_2_final.controllers;
 
 import com.example.unit_2_final.models.Account;
 import com.example.unit_2_final.repositories.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
