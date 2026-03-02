@@ -17,11 +17,11 @@ public class Interval {
     @ManyToMany(mappedBy = "intervalReview")
     private List<Account> accountList;
 
-    public Interval(int id, int size, String name, String imageURL) {
-        this.id = id;
+    public Interval(int size, String name, String imageURL, List<Account> accountList) {
         this.size = size;
         this.name = name;
         this.imageURL = imageURL;
+        this.accountList = accountList;
     }
 
     public Interval() {
@@ -57,5 +57,13 @@ public class Interval {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 }

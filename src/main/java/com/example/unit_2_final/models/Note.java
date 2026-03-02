@@ -18,13 +18,13 @@ public class Note {
     @ManyToMany(mappedBy = "noteReview")
     private List<Account> accountList;
 
-    public Note(int id, int pitch, String name, String text, String imageURL, String audio) {
-        this.id = id;
+    public Note(int pitch, String name, String text, String imageURL, String audio, List<Account> accountList) {
         this.pitch = pitch;
         this.name = name;
         this.text = text;
         this.imageURL = imageURL;
         this.audio = audio;
+        this.accountList = accountList;
     }
 
     public Note() {
@@ -76,5 +76,13 @@ public class Note {
 
     public void setAudio(String audio) {
         this.audio = audio;
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 }

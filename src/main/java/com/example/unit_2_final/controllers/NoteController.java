@@ -21,7 +21,7 @@ public class NoteController {
         return noteRepository.findAll();
     }
 
-    //Retrieve single note by id 'pitch'
+    //Retrieve single note by id
     @GetMapping("/notes/{id}")
     public Note getNote(@PathVariable int id) {
         return noteRepository.findById(id).orElse(null);
@@ -33,7 +33,7 @@ public class NoteController {
         return noteRepository.save(note);
     }
 
-    //Delete note by id 'pitch'
+    //Delete note by id
     @DeleteMapping("/notes/{id}")
     public void deleteNote(@PathVariable int id) {
         noteRepository.deleteById(id);

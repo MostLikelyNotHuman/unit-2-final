@@ -21,7 +21,7 @@ public class IntervalController {
         return intervalRepository.findAll();
     }
 
-    //Retrieve single interval by id 'size'
+    //Retrieve single interval by id
     @GetMapping("/intervals/{id}")
     public Interval getInterval(@PathVariable int id) {
         return intervalRepository.findById(id).orElse(null);
@@ -33,7 +33,7 @@ public class IntervalController {
         return intervalRepository.save(interval);
     }
 
-    //Delete interval by id 'size'
+    //Delete interval by id
     @DeleteMapping("/intervals/{id}")
     public void deleteInterval(@PathVariable int id) {
         intervalRepository.deleteById(id);
