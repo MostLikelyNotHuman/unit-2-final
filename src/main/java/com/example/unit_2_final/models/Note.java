@@ -2,6 +2,8 @@ package com.example.unit_2_final.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Note {
     @Id
@@ -12,6 +14,9 @@ public class Note {
     private String text;
     private String imageURL;
     private String audio;
+
+    @ManyToMany(mappedBy = "noteReview")
+    private List<Account> accountList;
 
     public Note(int id, int pitch, String name, String text, String imageURL, String audio) {
         this.id = id;

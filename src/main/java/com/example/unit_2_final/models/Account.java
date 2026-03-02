@@ -11,15 +11,28 @@ public class Account {
     private int id;
     private String username;
     private String password;
-//    private List<Note> noteReview;
-//    private List<Interval> intervalReview;
+
+    @ManyToMany
+    @JoinTable(
+            name = "account_note_review",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "note_id")
+    )
+    private List<Note> noteReview;
+    @ManyToMany
+    @JoinTable(
+            name = "account_interval_review",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "interval_id")
+    )
+    private List<Interval> intervalReview;
 
     public Account(int id, String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
         this.id = id;
         this.username = username;
         this.password = password;
-//        this.noteReview = noteReview;
-//        this.intervalReview = intervalReview;
+        this.noteReview = noteReview;
+        this.intervalReview = intervalReview;
     }
 
     public Account() {
@@ -49,19 +62,19 @@ public class Account {
         this.password = password;
     }
 
-//    public List<Note> getNoteReview() {
-//        return noteReview;
-//    }
-//
-//    public void setNoteReview(List<Note> noteReview) {
-//        this.noteReview = noteReview;
-//    }
-//
-//    public List<Interval> getIntervalReview() {
-//        return intervalReview;
-//    }
-//
-//    public void setIntervalReview(List<Interval> intervalReview) {
-//        this.intervalReview = intervalReview;
-//    }
+    public List<Note> getNoteReview() {
+        return noteReview;
+    }
+
+    public void setNoteReview(List<Note> noteReview) {
+        this.noteReview = noteReview;
+    }
+
+    public List<Interval> getIntervalReview() {
+        return intervalReview;
+    }
+
+    public void setIntervalReview(List<Interval> intervalReview) {
+        this.intervalReview = intervalReview;
+    }
 }
