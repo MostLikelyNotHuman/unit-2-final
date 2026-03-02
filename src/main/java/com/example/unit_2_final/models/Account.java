@@ -1,8 +1,13 @@
 package com.example.unit_2_final.models;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
 public class Account {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;

@@ -1,8 +1,12 @@
 package com.example.unit_2_final.models;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Interval {
-    private String name;
+    @Id
     private int size;
+    private String name;
     private String imageURL;
 
     public Interval(String name, int size, String imageURL) {

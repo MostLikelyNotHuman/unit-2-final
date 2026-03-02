@@ -1,8 +1,12 @@
 package com.example.unit_2_final.models;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Note {
-    private String name;
+    @Id
     private int pitch;
+    private String name;
     private String text;
     private String imageURL;
     private String audio;
