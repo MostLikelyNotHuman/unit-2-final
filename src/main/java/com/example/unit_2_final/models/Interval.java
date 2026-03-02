@@ -3,6 +3,7 @@ package com.example.unit_2_final.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "`interval`")
 public class Interval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
