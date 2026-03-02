@@ -1,13 +1,13 @@
-package com.example.unit_2_final.controllers;
+package com.example.unit_2_final.models;
 
-public class NoteController {
+public class Note {
     private String name;
     private int pitch;
     private String text;
     private String imageURL;
     private String audio;
 
-    public NoteController(String name, int pitch, String text, String imageURL, String audio) {
+    public Note(String name, int pitch, String text, String imageURL, String audio) {
         this.name = name;
         this.pitch = pitch;
         this.text = text;
@@ -15,7 +15,7 @@ public class NoteController {
         this.audio = audio;
     }
 
-    public NoteController() {
+    public Note() {
     }
 
     public String getName() {

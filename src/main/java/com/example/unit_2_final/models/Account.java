@@ -1,15 +1,15 @@
-package com.example.unit_2_final.controllers;
+package com.example.unit_2_final.models;
 
 import java.util.List;
 
-public class AccountController {
+public class Account {
     private int id;
     private String username;
     private String password;
     private List<Object> noteReview;
     private List<Object> intervalReview;
 
-    public AccountController(int id, String username, String password, List<Object> noteReview, List<Object> intervalReview) {
+    public Account(int id, String username, String password, List<Object> noteReview, List<Object> intervalReview) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -17,7 +17,7 @@ public class AccountController {
         this.intervalReview = intervalReview;
     }
 
-    public AccountController() {
+    public Account() {
     }
 
     public int getId() {

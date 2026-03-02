@@ -1,17 +1,17 @@
-package com.example.unit_2_final.controllers;
+package com.example.unit_2_final.models;
 
-public class IntervalController {
+public class Interval {
     private String name;
     private int size;
     private String imageURL;
 
-    public IntervalController(String name, int size, String imageURL) {
+    public Interval(String name, int size, String imageURL) {
         this.name = name;
         this.size = size;
         this.imageURL = imageURL;
     }
 
-    public IntervalController() {
+    public Interval() {
     }
 
     public String getName() {
