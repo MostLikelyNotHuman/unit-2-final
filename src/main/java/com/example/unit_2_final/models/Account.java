@@ -27,12 +27,16 @@ public class Account {
     )
     private List<Interval> intervalReview;
 
-    public Account(int id, String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
-        this.id = id;
+    public Account(String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
         this.username = username;
         this.password = password;
         this.noteReview = noteReview;
         this.intervalReview = intervalReview;
+    }
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public Account() {
