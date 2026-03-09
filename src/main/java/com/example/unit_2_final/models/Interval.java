@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "`interval`")
+@Table(name = "`intervals`")
 public class Interval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
