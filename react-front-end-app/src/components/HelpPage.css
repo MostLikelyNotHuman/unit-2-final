@@ -1,0 +1,101 @@
+.helpPage-main {
+    display: flex;
+    flex-direction: row;
+}
+
+#help-content {
+    flex: 1;
+    width: auto;
+    padding: 20px;
+}
+
+#help-content p {
+    padding: 10px 30px;
+}
+
+#nav-bar {
+    background-color: rgb(238, 238, 238);
+    width: 250px;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: auto;
+    align-self: flex-start;
+}
+
+#nav-bar button {
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    border-width: 0;
+    font-size: 15px;
+    height: 30px;
+    margin: 0;
+}
+
+#nav-bar button:hover {
+    background-color: rgb(179, 179, 179);
+}
+
+h3 {
+    font-size: 25px;
+}
+
+p {
+    font-size: 18px;
+}
+
+li {
+    font-size: 18px;
+}
+
+#help-content li {
+    margin-left: 20px;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+table {
+    margin: auto;  
+}
+
+#interval-table img {
+    height: 100px;
+    width: 100px;
+}
+
+table tr td {
+    text-align: center;
+}
+
+table tr td img {
+    height: 50px;
+    margin: auto;
+}
+
+.table-two-images {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px;
+    justify-content: center;
+}
+
+.table-two-images img {
+    margin: 0px 5px;
+}
+
+@media (max-width: 750px) {
+
+    .helpPage-main {
+        flex-direction: column-reverse;
+    }
+
+    #nav-bar {
+        padding-top: 10;
+        width: 100vw;
+        height: 150px;
+     }
+
+}
