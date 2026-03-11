@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "`accounts`")
-public class Account {
+@Table(name = "`users`")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,32 +15,32 @@ public class Account {
 
     @ManyToMany
     @JoinTable(
-            name = "account_note_review",
-            joinColumns = @JoinColumn(name = "account_id"),
+            name = "user_note_review",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "note_id")
     )
     private List<Note> noteReview;
     @ManyToMany
     @JoinTable(
-            name = "account_interval_review",
-            joinColumns = @JoinColumn(name = "account_id"),
+            name = "user_interval_review",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interval_id")
     )
     private List<Interval> intervalReview;
 
-    public Account(String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
+    public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
         this.username = username;
         this.password = password;
         this.noteReview = noteReview;
         this.intervalReview = intervalReview;
     }
 
-    public Account(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Account() {
+    public User() {
     }
 
     public int getId() {
