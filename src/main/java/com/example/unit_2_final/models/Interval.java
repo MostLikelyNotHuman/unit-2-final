@@ -14,14 +14,20 @@ public class Interval {
     private String name;
     private String imageURL;
 
-    @ManyToMany(mappedBy = "intervalReview")
-    private List<Account> accountList;
+//    @ManyToMany(mappedBy = "intervalReview")
+//    private List<Account> accountList;
 
-    public Interval(int size, String name, String imageURL, List<Account> accountList) {
+//    public Interval(int size, String name, String imageURL, List<Account> accountList) {
+//        this.size = size;
+//        this.name = name;
+//        this.imageURL = imageURL;
+//        this.accountList = accountList;
+//    }
+
+    public Interval(int size, String name, String imageURL) {
         this.size = size;
         this.name = name;
         this.imageURL = imageURL;
-        this.accountList = accountList;
     }
 
     public Interval() {
@@ -59,11 +65,11 @@ public class Interval {
         this.imageURL = imageURL;
     }
 
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
-    }
+//    public List<Account> getAccountList() {
+//        return accountList;
+//    }
+//
+//    public void setAccountList(List<Account> accountList) {
+//        this.accountList = accountList;
+//    }
 }

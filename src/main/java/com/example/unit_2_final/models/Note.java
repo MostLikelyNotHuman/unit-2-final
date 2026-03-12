@@ -16,16 +16,24 @@ public class Note {
     private String imageURL;
     private String audio;
 
-    @ManyToMany(mappedBy = "noteReview")
-    private List<Account> accountList;
+//    @ManyToMany(mappedBy = "noteReview")
+//    private List<Account> accountList;
 
-    public Note(int pitch, String name, String text, String imageURL, String audio, List<Account> accountList) {
+//    public Note(int pitch, String name, String text, String imageURL, String audio, List<Account> accountList) {
+//        this.pitch = pitch;
+//        this.name = name;
+//        this.text = text;
+//        this.imageURL = imageURL;
+//        this.audio = audio;
+//        this.accountList = accountList;
+//    }
+
+    public Note(int pitch, String name, String text, String imageURL, String audio) {
         this.pitch = pitch;
         this.name = name;
         this.text = text;
         this.imageURL = imageURL;
         this.audio = audio;
-        this.accountList = accountList;
     }
 
     public Note() {
@@ -79,11 +87,11 @@ public class Note {
         this.audio = audio;
     }
 
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
-    }
+//    public List<Account> getAccountList() {
+//        return accountList;
+//    }
+//
+//    public void setAccountList(List<Account> accountList) {
+//        this.accountList = accountList;
+//    }
 }
