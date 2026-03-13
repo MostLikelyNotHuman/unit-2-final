@@ -16,7 +16,7 @@ const LoginPage = ({ }) => {
     return(
         <main className="loginPage-main">
             <h3>Login</h3>
-            <p>Enter credentials, then select Login to log in or Create Account to create new account.</p>
+            <p>Enter credentials, then select Login to log in or Create User to create new user.</p>
             <Divider />
             <form id="login-form">
                 <fieldset>
@@ -40,11 +40,11 @@ const LoginPage = ({ }) => {
                         />
                 </fieldset>
                 <Button
-                    id="create-account"
-                    text="Create Account"
+                    id="create-user"
+                    text="Create User"
                     onClick={(e) => {
                         e.preventDefault()
-                        //call to check if account already exists, if not post
+                        //call to check if user already exists, if not post
                     }}
             </form>
         </main>
