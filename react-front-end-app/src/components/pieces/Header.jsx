@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import Button from "./Button";
 import './Header.css';
 
-const Header = () => {
+const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
     return (
         <>
@@ -29,6 +29,10 @@ const Header = () => {
                     <Link to={"/contact"}>
                         <Button text={'Contact'}/>
                     </Link>
+                    <Button text={!isLoggedIn ? "Log In" : "Log Out"}
+                        onClick={(e) => {
+                            !isLoggedIn ? setIsLoggedIn(true) : setIsLoggedIn(false);
+                        }}/>
                 </div>
             </header>
         </>

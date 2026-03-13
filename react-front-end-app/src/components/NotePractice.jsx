@@ -9,8 +9,6 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
     const correctAnswer = useRef('');
     const [selected, setSelected] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
-
-
     
     const retrieveQuestion = () => {
         // let editedNotes = [...notes]; 

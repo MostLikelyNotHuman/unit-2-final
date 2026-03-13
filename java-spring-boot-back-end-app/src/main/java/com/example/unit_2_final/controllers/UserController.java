@@ -16,42 +16,12 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    //Retrieve all users
-    @GetMapping("/users")
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
-
     //Retrieve single user by id
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable int id) {
         return userRepository.findById(id).orElse(null);
     }
-
-    //Create new user
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
-    }
 }
-    //    //Update user credentials
-//    @PutMapping("/users/{id}")
-//    public User updateUserUsername(@PathVariable int id, @RequestBody User user) {
-//        user.setId(id);
-//        return userRepository.save(user);
-//    }
-//
-//    @PutMapping("/users/{id}/password")
-//    public User updateUserPassword(@PathVariable int id, @RequestBody User user, String password) {
-//        user.setPassword(password);
-//        return userRepository.save(user);
-//    }
-//
-//    @DeleteMapping("/users/{id}")
-//    public void deleteUser(@PathVariable int id) {
-//        userRepository.deleteById(id);
-//    }
-//
 //    //Retrieve all notes in an user's note review list
 //    @GetMapping("/users/{id}/notes")
 //    public List<Note> getUserNotes(@PathVariable int id) {

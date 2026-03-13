@@ -20,6 +20,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "note_id")
     )
     private List<Note> noteReview;
+
     @ManyToMany
     @JoinTable(
             name = "user_interval_review",

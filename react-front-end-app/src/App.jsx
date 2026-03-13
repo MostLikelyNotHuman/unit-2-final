@@ -9,16 +9,17 @@ import Header from './components/pieces/Header';
 import Footer from './components/pieces/Footer';
 import ContactPage from './components/ContactPage';
 import { useState } from 'react';
-import LoginPage from './components/LoginPage';
+// import LoginPage from './components/LoginPage';
 
 function App() {
 
   const [ reviewNotes, setReviewNotes ] = useState([]);
   const [ reviewIntervals, setReviewIntervals ] = useState([]);
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/practice-notes" element={<NotePractice 
@@ -31,10 +32,11 @@ function App() {
           reviewNotes={reviewNotes}
           setReviewNotes={setReviewNotes}
           reviewIntervals={reviewIntervals}
-          setReviewIntervals={setReviewIntervals} />} />
+          setReviewIntervals={setReviewIntervals} 
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />
     </>

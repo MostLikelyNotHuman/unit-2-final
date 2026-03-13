@@ -1,7 +1,7 @@
 import Button from "./pieces/Button";
 import './ReviewPage.css';
 
-const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals }) => {
+const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
 
     return (
         <main className="review-list">
