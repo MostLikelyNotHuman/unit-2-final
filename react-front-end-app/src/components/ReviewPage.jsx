@@ -1,8 +1,29 @@
 import Button from "./pieces/Button";
+import { useEffect } from "react";
 import './ReviewPage.css';
 
 const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
     
+
+    useEffect(() => {
+        const userData = fetch("http://localhost:8080/users/1")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                console.log(json);
+                setReviewNotes(json.noteReview); 
+                setReviewIntervals(json.intervalReview);
+            })  
+    }, []);
+  
+
+
+
+
+
+
+
     return (
         <main className="review-list">
             <h3>Review!</h3>

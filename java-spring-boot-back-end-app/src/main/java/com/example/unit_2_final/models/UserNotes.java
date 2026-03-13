@@ -1,10 +1,8 @@
 package com.example.unit_2_final.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+@Entity
 public class UserNotes {
 
     @Id
@@ -14,12 +12,12 @@ public class UserNotes {
     private String noteBody;
 
     @ManyToOne
-    private int userId;
+    private User user;
 
-    public UserNotes(String noteTitle, String noteBody, int userId) {
+    public UserNotes(String noteTitle, String noteBody, User user) {
         this.noteTitle = noteTitle;
         this.noteBody = noteBody;
-        this.userId = userId;
+        this.user = user;
     }
 
     private UserNotes() {
@@ -41,11 +39,11 @@ public class UserNotes {
         this.noteBody = noteBody;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(User user) {
+        this.user = user;
     }
 }
