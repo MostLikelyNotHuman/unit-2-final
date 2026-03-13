@@ -29,11 +29,15 @@ public class User {
     )
     private List<Interval> intervalReview;
 
-    public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview) {
+    @OneToMany
+    private List<UserNotes> userNotes;
+
+    public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview, List<UserNotes> userNotes) {
         this.username = username;
         this.password = password;
         this.noteReview = noteReview;
         this.intervalReview = intervalReview;
+        this.userNotes = userNotes;
     }
 
     public User(String username, String password) {
@@ -82,5 +86,13 @@ public class User {
 
     public void setIntervalReview(List<Interval> intervalReview) {
         this.intervalReview = intervalReview;
+    }
+
+    public List<UserNotes> getUserNotes() {
+        return userNotes;
+    }
+
+    public void setUserNotes(List<UserNotes> userNotes) {
+        this.userNotes = userNotes;
     }
 }
