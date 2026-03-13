@@ -2,7 +2,7 @@ import Button from "./pieces/Button";
 import './ReviewPage.css';
 
 const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
-
+    
     return (
         <main className="review-list">
             <h3>Review!</h3>
@@ -10,7 +10,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 Brush up on your skills on the problems you've added to solidify your knowledge!
                 As a reminder, you can find images of all the notes and intervals available in the 
                 exercises here on the help page.</p>
-            <h4>Notes: </h4>
+            <h4>Notes Review: </h4>
 
             {isLoggedIn ? 
                 <>
@@ -29,10 +29,10 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         <p>Nothing to review!</p>
                     }
                 </>
-                : <p>Please log in to store and view note practice</p>
+                : <p>Please log in to store and view note review</p>
             }
             
-            <h4>Intervals: </h4>
+            <h4>Intervals Review: </h4>
 
             {isLoggedIn ?
                 <>
@@ -51,8 +51,18 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         <p>Nothing to review!</p>
                     }
                 </>
-                : <p>Please log in to store and view interval practice</p>
+                : <p>Please log in to store and view interval review</p>
             }
+
+            <h4>User Notes: </h4>
+                <>
+                
+                //implementation - query user notes whatever
+                
+                
+                </>
+            
+
         </main>
     );
 
