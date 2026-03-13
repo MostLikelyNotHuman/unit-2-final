@@ -11,34 +11,47 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 As a reminder, you can find images of all the notes and intervals available in the 
                 exercises here on the help page.</p>
             <h4>Notes: </h4>
-            {reviewNotes.length ?
-                <div id="review-notes">
-                    <ul>
-                        {reviewNotes.map(problem => <li key={problem}>{problem}</li>)}
-                    </ul>
-                    <Button
-                        text={'Clear Notes Review'}
-                        onClick={() => {
-                            setReviewNotes([]);
-                        }}
-                    /> 
-                </div> :
-                <p>Nothing to review!</p>
+
+            {isLoggedIn ? 
+                <>
+                    {reviewNotes.length ?
+                        <div id="review-notes">
+                            <ul>
+                                {reviewNotes.map(problem => <li key={problem}>{problem}</li>)}
+                            </ul>
+                            <Button
+                                text={'Clear Notes Review'}
+                                onClick={() => {
+                                    setReviewNotes([]);
+                                }}
+                            /> 
+                        </div> :
+                        <p>Nothing to review!</p>
+                    }
+                </>
+                : <p>Please log in to store and view note practice</p>
             }
+            
             <h4>Intervals: </h4>
-            {reviewIntervals.length ?
-                <div id="review-intervals">
-                    <ul>
-                        {reviewIntervals.map(problem => <li key={problem}>{problem}</li>)}
-                    </ul>
-                    <Button
-                        text={'Clear Intervals Review'}
-                        onClick={() => {
-                            setReviewIntervals([]);
-                        }}
-                    /> 
-                </div> :
-                <p>Nothing to review!</p>
+
+            {isLoggedIn ?
+                <>
+                    {reviewIntervals.length ?
+                        <div id="review-intervals">
+                            <ul>
+                                {reviewIntervals.map(problem => <li key={problem}>{problem}</li>)}
+                            </ul>
+                            <Button
+                                text={'Clear Intervals Review'}
+                                onClick={() => {
+                                    setReviewIntervals([]);
+                                }}
+                            /> 
+                        </div> :
+                        <p>Nothing to review!</p>
+                    }
+                </>
+                : <p>Please log in to store and view interval practice</p>
             }
         </main>
     );
