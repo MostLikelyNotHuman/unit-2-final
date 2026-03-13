@@ -29,8 +29,10 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                     <Link to={"/contact"}>
                         <Button text={'Contact'}/>
                     </Link>
+                </div>
+                <div id="login-button-div">
                     <Button text={!isLoggedIn ? "Log In" : "Log Out"}
-                        onClick={(e) => {
+                        onClick={() => {
                             !isLoggedIn ? setIsLoggedIn(true) : setIsLoggedIn(false);
                         }}/>
                 </div>
