@@ -1,7 +1,9 @@
 package com.example.unit_2_final.controllers;
 
+import com.example.unit_2_final.models.User;
 import com.example.unit_2_final.models.UserNote;
 import com.example.unit_2_final.repositories.UserNotesRepository;
+import com.example.unit_2_final.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,32 +12,38 @@ import java.util.List;
 @RestController
 public class UserNoteController {
 
+    private final UserRepository userRepository;
     private final UserNotesRepository userNotesRepository;
 
-    public UserNoteController(UserNotesRepository userNotesRepository) {
+    public UserNoteController(UserRepository userRepository, UserNotesRepository userNotesRepository) {
+        this.userRepository = userRepository;
         this.userNotesRepository = userNotesRepository;
     }
 
     //Retrieve all user notes
-    @GetMapping("/user-notes")
-    public List<UserNote> getUserNotes() {
-        return userNotesRepository.findAll();
+    @GetMapping("/users/{userId}/notes")
+    public List<UserNote> getUserNotes(@PathVariable int userId) {
+        return userNotesRepository.findByUserId(userId);
     }
 
     //Retrieve single user note by id
-    @GetMapping("/user-notes/{id}")
+    @GetMapping("/users/notes/{id}")
     public UserNote getUserNote(@PathVariable int id) {
         return userNotesRepository.findById(id).orElse(null);
     }
 
     //Create new user note
-    @PostMapping("/user-notes")
-    public UserNote createUserNote(@RequestBody UserNote userNote) {
+    @PostMapping("/users/{userId}/notes")
+    public UserNote createUserNote(@PathVariable int userId, @RequestBody UserNote userNote) {
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        userNote.setUser(user);
+
         return userNotesRepository.save(userNote);
     }
 
     //Delete user note by id
-    @DeleteMapping("/user-notes/{id}")
+    @DeleteMapping("/users/notes/{id}")
     public void deleteUserNote(@PathVariable int id) {
         userNotesRepository.deleteById(id);
     }

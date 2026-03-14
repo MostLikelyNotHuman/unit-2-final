@@ -12,7 +12,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
     }
 
     useEffect(() => {
-        const userData = fetch("http://localhost:8080/users/1")
+        fetch("http://localhost:8080/users/1")
             .then(function(response) {
                 return response.json();
             })
@@ -20,8 +20,14 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 console.log(json);
                 setReviewNotes(json.noteReview); 
                 setReviewIntervals(json.intervalReview);
-                setUserNotes(json.userNotes);
             })  
+        fetch("http://localhost:8080/users/1/notes")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                setUserNotes(json || [])
+            })
     }, []);
   
     return (
@@ -83,6 +89,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         
                         <div id="user-notes">
                             <ul>
+                                {console.log(userNotes)}
                                 {userNotes.map(userNote =>
                                     <li key={userNote.id}>{userNote.noteBody}</li>
                                 )}
@@ -97,28 +104,28 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         onChange={(e) => handleChange(setNewUserNote, e.target.value)}
                     />
                     <Button 
-                        onClick={(e) => {
-                            const userData = fetch("http://localhost:8080/users/1")
-                                .then(function(response) {
-                                    return response.json();
-                                })
-                            fetch("http://localhost:8080/user-notes", {
+                        onClick={async(e) => {
+                            // fetch("http://localhost:8080/users/1")
+                            //     .then(function(response) {
+                            //         return response.json();
+                            //     })
+                            const newNote = await fetch("http://localhost:8080/users/1/notes", {
                                 method: "POST",
                                 body: JSON.stringify({
-                                    noteBody: newUserNote,
-                                    user: {
-                                        id: 1
-                                    }
+                                    noteBody: newUserNote
                                 }),
                                 headers: {
                                     "Content-type": "application/json; charset=UTF-8"
                                 }
+                            }).then(function(response) {
+                                return response.json();
                             })
+                            setUserNotes(notes => [...notes, newNote]);
                             setNewUserNote("");
+                            
                         }}
                         id = "new-user-note-button"
                         text = "Add User Note"
-                    
                     />
                 </>
                 : <p>Please log in to store and view personal notes</p>            

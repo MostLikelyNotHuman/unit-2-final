@@ -10,7 +10,8 @@ public class UserNote {
     private int id;
     private String noteBody;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public UserNote(String noteBody, User user) {
@@ -33,7 +34,7 @@ public class UserNote {
         return user;
     }
 
-    public void setUserId(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

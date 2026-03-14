@@ -1,5 +1,6 @@
 package com.example.unit_2_final.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class User {
     private List<Interval> intervalReview;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<UserNote> userNotes;
 
     public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview, List<UserNote> userNotes) {
