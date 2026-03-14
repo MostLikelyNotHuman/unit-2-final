@@ -1,9 +1,15 @@
 import Button from "./pieces/Button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import './ReviewPage.css';
 
 const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
     
+    const [ userNotes, setUserNotes ] = useState([]);
+    const [ newUserNote, setNewUserNote ] = useState('');
+
+    const handleChange = (field, value) => {
+        field(value);
+    }
 
     useEffect(() => {
         const userData = fetch("http://localhost:8080/users/1")
@@ -14,16 +20,10 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 console.log(json);
                 setReviewNotes(json.noteReview); 
                 setReviewIntervals(json.intervalReview);
+                setUserNotes(json.userNotes);
             })  
     }, []);
   
-
-
-
-
-
-
-
     return (
         <main className="review-list">
             <h3>Review!</h3>
@@ -76,13 +76,53 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
             }
 
             <h4>User Notes: </h4>
+
+            {isLoggedIn ?
                 <>
-                
-                //implementation - query user notes whatever
-                
-                
+                    {userNotes.length ? 
+                        
+                        <div id="user-notes">
+                            <ul>
+                                {userNotes.map(userNote =>
+                                    <li key={userNote.id}>{userNote.noteBody}</li>
+                                )}
+                            </ul>
+                        </div> :
+                        <p>No user notes yet saved</p>
+                    }
+                    <input
+                        type="text" 
+                        value={newUserNote}
+                        id="user-note-body"
+                        onChange={(e) => handleChange(setNewUserNote, e.target.value)}
+                    />
+                    <Button 
+                        onClick={(e) => {
+                            const userData = fetch("http://localhost:8080/users/1")
+                                .then(function(response) {
+                                    return response.json();
+                                })
+                            fetch("http://localhost:8080/user-notes", {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    noteBody: newUserNote,
+                                    user: {
+                                        id: 1
+                                    }
+                                }),
+                                headers: {
+                                    "Content-type": "application/json; charset=UTF-8"
+                                }
+                            })
+                            setNewUserNote("");
+                        }}
+                        id = "new-user-note-button"
+                        text = "Add User Note"
+                    
+                    />
                 </>
-            
+                : <p>Please log in to store and view personal notes</p>            
+            }      
 
         </main>
     );

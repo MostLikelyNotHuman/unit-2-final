@@ -29,10 +29,10 @@ public class User {
     )
     private List<Interval> intervalReview;
 
-    @OneToMany
-    private List<UserNotes> userNotes;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserNote> userNotes;
 
-    public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview, List<UserNotes> userNotes) {
+    public User(String username, String password, List<Note> noteReview, List<Interval> intervalReview, List<UserNote> userNotes) {
         this.username = username;
         this.password = password;
         this.noteReview = noteReview;
@@ -88,11 +88,11 @@ public class User {
         this.intervalReview = intervalReview;
     }
 
-    public List<UserNotes> getUserNotes() {
+    public List<UserNote> getUserNotes() {
         return userNotes;
     }
 
-    public void setUserNotes(List<UserNotes> userNotes) {
+    public void setUserNotes(List<UserNote> userNotes) {
         this.userNotes = userNotes;
     }
 }

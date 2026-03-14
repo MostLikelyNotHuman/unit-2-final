@@ -3,32 +3,22 @@ package com.example.unit_2_final.models;
 import jakarta.persistence.*;
 
 @Entity
-public class UserNotes {
+public class UserNote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String noteTitle;
     private String noteBody;
 
     @ManyToOne
     private User user;
 
-    public UserNotes(String noteTitle, String noteBody, User user) {
-        this.noteTitle = noteTitle;
+    public UserNote(String noteBody, User user) {
         this.noteBody = noteBody;
         this.user = user;
     }
 
-    private UserNotes() {
-    }
-
-    public String getNoteTitle() {
-        return noteTitle;
-    }
-
-    public void setNoteTitle(String noteTitle) {
-        this.noteTitle = noteTitle;
+    private UserNote() {
     }
 
     public String getNoteBody() {
