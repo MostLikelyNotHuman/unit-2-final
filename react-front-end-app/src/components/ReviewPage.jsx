@@ -115,10 +115,11 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         </div> :
                         <p>No user notes yet saved</p>
                     }
-                    <input
+                    <textarea
                         type="text" 
                         value={newUserNote}
                         id="user-note-body"
+                        placeholder="Enter new note here..."
                         onChange={(e) => handleChange(setNewUserNote, e.target.value)}
                     />
                     <Button 

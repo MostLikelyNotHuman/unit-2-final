@@ -22,3 +22,18 @@ button {
 button:hover {
     background-color: rgb(197, 197, 197);
 }
+
+.review-list textarea {
+    display: flex;
+    height: 100px;
+    width: 80%;
+    margin-top: 20px;
+    border-width: 2px;
+    border-color: black;
+    font-size: 20px;
+}
+
+#remove-list-item {
+    width: 120px;
+    height: 40px;
+}
