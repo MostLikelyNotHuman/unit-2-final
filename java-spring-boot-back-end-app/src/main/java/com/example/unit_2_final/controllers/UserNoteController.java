@@ -27,8 +27,8 @@ public class UserNoteController {
     }
 
     //Retrieve single user note by id
-    @GetMapping("/users/notes/{id}")
-    public UserNote getUserNote(@PathVariable int id) {
+    @GetMapping("/users/{userId}/notes/{id}")
+    public UserNote getUserNote(@PathVariable int userId, @PathVariable int id) {
         return userNotesRepository.findById(id).orElse(null);
     }
 

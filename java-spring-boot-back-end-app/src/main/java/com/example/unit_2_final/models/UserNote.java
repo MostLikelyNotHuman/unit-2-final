@@ -18,6 +18,14 @@ public class UserNote {
         this.noteBody = noteBody;
         this.user = user;
     }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     private UserNote() {
     }

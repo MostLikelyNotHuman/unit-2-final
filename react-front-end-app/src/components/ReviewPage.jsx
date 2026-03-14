@@ -11,6 +11,16 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
         field(value);
     }
 
+    const removeListItem = (id) => {
+        console.log(id);
+        fetch(`http://localhost:8080/users/notes/${id}`, {
+            method: "DELETE"
+        })
+        .then(() => {
+            setUserNotes(list => list.filter(userNote => userNote.id !== id));
+        })
+    }
+
     useEffect(() => {
         fetch("http://localhost:8080/users/1")
             .then(function(response) {
@@ -86,12 +96,20 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
             {isLoggedIn ?
                 <>
                     {userNotes.length ? 
-                        
                         <div id="user-notes">
                             <ul>
                                 {console.log(userNotes)}
                                 {userNotes.map(userNote =>
-                                    <li key={userNote.id}>{userNote.noteBody}</li>
+                                    <li key={userNote.id} id={userNote.id}>
+                                        {userNote.noteBody}
+                                        <Button
+                                            onClick={() => {
+                                                removeListItem(userNote.id);
+                                            }}
+                                            id="remove-list-item"
+                                            text="Remove"                                        
+                                        />
+                                    </li>
                                 )}
                             </ul>
                         </div> :
@@ -105,32 +123,28 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     />
                     <Button 
                         onClick={async(e) => {
-                            // fetch("http://localhost:8080/users/1")
-                            //     .then(function(response) {
-                            //         return response.json();
-                            //     })
-                            const newNote = await fetch("http://localhost:8080/users/1/notes", {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    noteBody: newUserNote
-                                }),
-                                headers: {
-                                    "Content-type": "application/json; charset=UTF-8"
-                                }
-                            }).then(function(response) {
-                                return response.json();
-                            })
-                            setUserNotes(notes => [...notes, newNote]);
-                            setNewUserNote("");
-                            
-                        }}
+                            if (newUserNote) {
+                                const newNote = await fetch("http://localhost:8080/users/1/notes", {
+                                    method: "POST",
+                                    body: JSON.stringify({
+                                        noteBody: newUserNote
+                                    }),
+                                    headers: {
+                                        "Content-type": "application/json; charset=UTF-8"
+                                    }
+                                }).then(function(response) {
+                                    return response.json();
+                                })
+                                setUserNotes(notes => [...notes, newNote]);
+                                setNewUserNote("");
+                            }}
+                        }
                         id = "new-user-note-button"
                         text = "Add User Note"
                     />
                 </>
                 : <p>Please log in to store and view personal notes</p>            
             }      
-
         </main>
     );
 
