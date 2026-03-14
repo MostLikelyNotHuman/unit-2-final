@@ -1,0 +1,66 @@
+header {
+    display: flex;
+    background-color: rgb(206, 221, 255);
+    height: 80px;
+}
+
+#header-home-link {
+    display: flex;
+    flex: 1;
+    margin-left: 20px;
+    align-items: center;
+    max-width: 150px;
+}
+
+#login-button-div {
+    display: flex;
+    flex: 1;
+    margin-right: 20px;
+    align-items: center;
+    max-width: 150px;
+}
+
+#header-home-link button, #login-button-div button {
+    background-color: white;
+    color: black;
+    font-size: 24px;
+    height: 60px;
+    width: 100px;
+    border-radius: 5px;
+    border-color: white;
+    border-width: 0px;
+    max-width: 100px;
+}
+
+#login-button-div button {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#header-nav-links {
+    display: flex;
+    flex: 6;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    margin-right: 20px;
+}
+
+
+#header-nav-links button {
+    flex: 1 0 40%;
+    height: 40px;
+    width: 80px;
+    margin: 5px;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    border-radius: 15px;
+    border-color: white;
+    border-width: 0px;
+}
+
+#header-nav-links button:hover,
+#header-home-link button:hover {
+    background-color: rgb(197, 197, 197);
+}

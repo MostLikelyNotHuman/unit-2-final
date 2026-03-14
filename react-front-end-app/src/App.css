@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Funnel+Sans');
+
+body {
+    font-family: 'Funnel Sans';
+}
+
+button {
+    color: aliceblue;
+    background-color: gray;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.divider {
+    background-color: black;
+    height: 1px;
+    margin: 10px;
+}
