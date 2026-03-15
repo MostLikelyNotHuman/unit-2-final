@@ -37,14 +37,15 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, sel
                     let className = "answer";
 
                     if (selected) {
-                        if (a === correctAnswer) className += "-correct";
+                        if (a.text === correctAnswer) className += "-correct";
                         else if (a === selected) className += "-incorrect";
                     }
 
                     return (
                         <Button
-                            key={a}
-                            text={a}
+                            key={a.id}
+                            id={a.id}
+                            text={a.text}
                             className={className}
                             disabled={answerDisabled}
                             onClick={() => {

@@ -36,7 +36,7 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
                 json.splice(correctRNG, 1);
                 correctAnswer.current = newQuestion.text;
 
-                let answersArray = [correctAnswer.current];
+                let answersArray = [newQuestion];
                 setQuestionImage(newQuestion.imageurl);
 
                 for (let i = 0; i < 3; i++) {
@@ -45,7 +45,7 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
                             // - generates random number between 0 and length of edited notes array
                     let incorrectAnswer = json[incorrectRNG];
                             // - selects incorrect answer by index with random number
-                    answersArray.push(incorrectAnswer.text);    
+                    answersArray.push(incorrectAnswer);    
                             // - adds incorrect answer to the answers array shown to the user        
                     json.splice(incorrectRNG, 1);
                             // - removes incorrect answer from edited array
@@ -55,6 +55,18 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
                 setAnswers(answersArray);
                     // setanswers usestate
             })
+
+
+
+
+
+
+
+
+
+
+
+
             // retrieving full notes array into 'notes' to edit
         // notes.splice((notes.length-1), 1);
         //     // removing high c? not sure why i did this
