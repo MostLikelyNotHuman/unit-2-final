@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class UserController {
 
@@ -28,14 +28,18 @@ public class UserController {
 
     //Retrieve all notes in a user's note review list
     @GetMapping("/users/{userId}/notes")
-    public List<Note> getUserNotes(@PathVariable int id) {
-        return userRepository.findById(id).orElse(null).getNoteReview();
+    public List<Note> getUserNotes(@PathVariable int userId) {
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        return user.getNoteReview();
         //TODO: deal with exception
     }
 
     //Updates user's note review list
     @PutMapping("/users/{userId}/notes")
-    public List<Note> updateUserNotes(@PathVariable int userIid, @RequestBody User user, List<Note> noteReview) {
+    public List<Note> updateUserNotes(@PathVariable int userId, List<Note> noteReview) {
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
         user.setNoteReview(noteReview);
         return userRepository.save(user).getNoteReview();
     }
@@ -47,6 +51,7 @@ public class UserController {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
         Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException("Note not found with id: " + noteId));
         user.getNoteReview().add(note);
+        userRepository.save(user);
         return note;
     }
 

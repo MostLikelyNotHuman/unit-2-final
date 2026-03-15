@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css'
 
-const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, selected, onSelect, notesReview, setNotesReview, nextClick }) => {
+const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
@@ -16,10 +16,29 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, sel
             </div>
             <div id="next-div">
                 <Button onClick={() => {
-                    if (!notesReview.find((problem) => problem === correctAnswer)) {
-                        setNotesReview([...notesReview, correctAnswer])
+                    if(isLoggedIn) {
+                        const userReviewNotes = fetch("http://localhost:8080/users/1/notes")
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(json) {
+                                console.log(json);
+                                if (!json.find((problem) => problem.id === correctAnswerObject.id)) {
+                                    console.log(correctAnswerObject);
+                                    fetch(`http://localhost:8080/users/1/${correctAnswerObject.id}/notes`, {
+                                        method: "POST",
+                                        body: JSON.stringify({
+                                            correctAnswer
+                                        }),
+                                        headers: {
+                                            "Content-type": "application/json; charset=UTF-8"
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     }
-                }} 
+                } 
                 id={'add-review-button'}
                 text={'Add to Review'}/>
                 <Button onClick={() => {

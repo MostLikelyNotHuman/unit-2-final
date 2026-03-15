@@ -1,12 +1,14 @@
+import { useFormState } from "react-dom";
 import QuizBoxNotes from "./pieces/QuizBoxNotes";
 // import { notes } from "../assets/notes";
 import { useEffect, useState, useRef } from "react";
 
-const NotePractice = ({ notesReview, setNotesReview }) => {
+const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
 
     const [ questionImage, setQuestionImage ] = useState(null);
     const [ answers, setAnswers ] = useState([]);
     const correctAnswer = useRef('');
+    const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
     const [selected, setSelected] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     
@@ -33,7 +35,9 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
                 json.splice((json.length-1), 1);
                 const correctRNG = Math.floor(Math.random() * json.length);
                 const newQuestion = json[correctRNG];
+                setCorrectAnswerObject(newQuestion);
                 json.splice(correctRNG, 1);
+                console.log(newQuestion);
                 correctAnswer.current = newQuestion.text;
 
                 let answersArray = [newQuestion];
@@ -122,11 +126,13 @@ const NotePractice = ({ notesReview, setNotesReview }) => {
                 questionImage={questionImage}
                 answers={answers}
                 correctAnswer={correctAnswer.current}
+                correctAnswerObject={correctAnswerObject}
                 notesReview={notesReview}
                 setNotesReview={setNotesReview}
                 selected={selected}
                 onSelect={setSelected}
                 answerDisabled={answerDisabled}
+                isLoggedIn={isLoggedIn}
                 nextClick={() => {
                     setSelected(null);
                     retrieveQuestion();
