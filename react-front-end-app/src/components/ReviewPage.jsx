@@ -109,6 +109,13 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                             id="remove-list-item"
                                             text="Remove"                                        
                                         />
+                                        <Button 
+                                            onClick={() => {
+
+                                            }}
+                                            id="edit-list-item"
+                                            text="Edit"
+                                        />
                                     </li>
                                 )}
                             </ul>
