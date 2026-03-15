@@ -15,6 +15,7 @@ public class User {
     private String password;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "user_note_review",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -23,6 +24,7 @@ public class User {
     private List<Note> noteReview;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "user_interval_review",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -80,6 +82,10 @@ public class User {
 
     public void setNoteReview(List<Note> noteReview) {
         this.noteReview = noteReview;
+    }
+
+    public void addNoteToReview(Note note) {
+        this.noteReview.add(note);
     }
 
     public List<Interval> getIntervalReview() {

@@ -21,19 +21,19 @@ public class UserNoteController {
     }
 
     //Retrieve all user notes
-    @GetMapping("/users/{userId}/notes")
+    @GetMapping("/users/{userId}/user-notes")
     public List<UserNote> getUserNotes(@PathVariable int userId) {
         return userNotesRepository.findByUserId(userId);
     }
 
     //Retrieve single user note by id
-    @GetMapping("/users/{userId}/notes/{id}")
+    @GetMapping("/users/{userId}/user-notes/{id}")
     public UserNote getUserNote(@PathVariable int userId, @PathVariable int id) {
         return userNotesRepository.findById(id).orElse(null);
     }
 
     //Create new user note
-    @PostMapping("/users/{userId}/notes")
+    @PostMapping("/users/{userId}/user-notes")
     public UserNote createUserNote(@PathVariable int userId, @RequestBody UserNote userNote) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
@@ -43,7 +43,7 @@ public class UserNoteController {
     }
 
     //Delete user note by id
-    @DeleteMapping("/users/notes/{id}")
+    @DeleteMapping("/users/user-notes/{id}")
     public void deleteUserNote(@PathVariable int id) {
         userNotesRepository.deleteById(id);
     }
