@@ -1,7 +1,7 @@
 import Button from "./pieces/Button";
 import { useEffect, useState } from "react";
 
-const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserNote, setNewUserNote, key, noteId}) => {
+const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserNote, setNewUserNote, noteId}) => {
 
     const [ listItemVisible, setListItemVisible ] = useState(false);
     const [ editButtonText, setEditButtonText ] = useState("Edit");
@@ -23,7 +23,6 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
     return (
         <>
             <li 
-            key={key}
             id={noteId}
             >
                 <div
@@ -55,11 +54,11 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
                                     userId: 1,
                                     noteBody: noteContent
                                 })
+                            }).then(function(response) {
+                                return response.json();
+                            }).then(function(response) {
+                                setUserNotes(existingNotes => existingNotes.map(n => n.id === noteId ? { ...n, noteBody: response.noteBody } : n));
                             })
-                            
-                            let updatedUserNotes = [...userNotes];
-                            updatedUserNotes[userNote.id].noteBody = noteContent;
-                            setUserNotes(updatedUserNotes);
                         } else {
                             setListItemVisible(true);
                             setEditButtonText("Save");
