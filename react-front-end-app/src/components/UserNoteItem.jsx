@@ -1,7 +1,7 @@
 import Button from "./pieces/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserNote, setNewUserNote, noteId}) => {
+const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
 
     const [ listItemVisible, setListItemVisible ] = useState(false);
     const [ editButtonText, setEditButtonText ] = useState("Edit");
@@ -16,7 +16,24 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
             method: "DELETE"
         })
         .then(() => {
-            setUserNotes(list => list.filter(n => n.id !== noteId));
+            setUserNotes(existingNotes => existingNotes.filter(n => n.id !== noteId));
+        })
+    }
+
+    const updateNote = () => {
+        fetch(`http://localhost:8080/users/1/user-notes/${noteId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId: 1,
+                noteBody: noteContent
+            })
+        }).then(function(response) {
+            return response.json();
+        }).then(function(response) {
+            setUserNotes(existingNotes => existingNotes.map(n => n.id === noteId ? { ...n, noteBody: response.noteBody } : n));
         })
     }
 
@@ -45,102 +62,21 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
                         if(listItemVisible) {
                             setListItemVisible(false);
                             setEditButtonText("Edit");
-                            fetch(`http://localhost:8080/users/1/user-notes/${noteId}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    userId: 1,
-                                    noteBody: noteContent
-                                })
-                            }).then(function(response) {
-                                return response.json();
-                            }).then(function(response) {
-                                setUserNotes(existingNotes => existingNotes.map(n => n.id === noteId ? { ...n, noteBody: response.noteBody } : n));
-                            })
+                            updateNote();
                         } else {
                             setListItemVisible(true);
                             setEditButtonText("Save");
                         }
                     }}            
                 />
-
                 <Button
                     id="remove-list-item"
                     text="Remove"  
                     onClick={removeListItem}                                 
                 />
-
-
             </li>
         </>
     )
-
-
-
-
-
-
-
-
-
-
-
-
-            //                     {userNotes.map(userNote =>
-            //                         <li key={`usernotes-${userNote.id}`} id={userNote.id}>
-            //                             <div className="usernotes-item-editable">{userNote.noteBody}</div>
-                                    
-            //                             <Button 
-            //                                 onClick={() => {
-            //                                     let noteText = userNote.noteBody;
-            //                                     let id = userNote.id;
-            //                                 }}
-            //                                 id="edit-list-item"
-            //                                 text="Edit"
-            //                             />
-            //                         </li>
-            //                     )}
-            //                 </ul>
-            //             </div> :
-            //             <p>No user notes yet saved</p>
-            //         }
-            //         <input
-            //             type="text" 
-            //             value={newUserNote}
-            //             id="user-note-body"
-            //             onChange={(e) => handleChange(setNewUserNote, e.target.value)}
-            //         />
-            //         <Button 
-            //             onClick={async(e) => {
-            //                 if (newUserNote) {
-            //                     const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
-            //                         method: "POST",
-            //                         body: JSON.stringify({
-            //                             noteBody: newUserNote
-            //                         }),
-            //                         headers: {
-            //                             "Content-type": "application/json; charset=UTF-8"
-            //                         }
-            //                     }).then(function(response) {
-            //                         return response.json();
-            //                     })
-            //                     setUserNotes(notes => [...notes, newNote]);
-            //                     setNewUserNote("");
-            //                 }}
-            //             }
-            //             id = "new-user-note-button"
-            //             text = "Add User Note"
-            //         />
-            //     </>
-            //     : <p>Please log in to store and view personal notes</p>            
-            // }      
-
-
-
-
 }
-
 
 export default UserNoteItem;
