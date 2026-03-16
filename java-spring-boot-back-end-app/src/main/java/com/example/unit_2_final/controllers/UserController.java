@@ -66,7 +66,7 @@ public class UserController {
     }
 
     //Adds a note to user's note review list
-    @PostMapping("/users/{userId}/{noteId}/notes")
+    @PostMapping("/users/{userId}/notes/{noteId}")
     public Note addNoteToUserNotes(@PathVariable int userId, @PathVariable int noteId) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
@@ -77,7 +77,7 @@ public class UserController {
     }
 
     //Adds an interval to a user's interval review list
-    @PostMapping("/users/{userId}/{intervalId}/intervals")
+    @PostMapping("/users/{userId}/intervals/{intervalId}")
     public Interval addIntervalToUserIntervals(@PathVariable int userId, @PathVariable int intervalId) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
@@ -88,12 +88,23 @@ public class UserController {
     }
 
     //Deletes a note from user's note review list
-    @DeleteMapping("/users/{userId}/{noteId}/notes")
+    @DeleteMapping("/users/{userId}/notes/{noteId}")
     public void deleteNoteFromUserNotes(@PathVariable int userId, @PathVariable int noteId) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
         Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException("Note not found with id: " + noteId));
         user.getNoteReview().remove(note);
+        userRepository.save(user);
+    }
+
+    //Deletes an interval from a user's interval review list
+    @DeleteMapping("/users/{userId}/intervals/{intervalId}")
+    public void deleteIntervalFromUserIntervals(@PathVariable int userId, @PathVariable int intervalId) {
+        
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        Interval interval = intervalRepository.findById(intervalId).orElseThrow(() -> new RuntimeException("Interval not found with id: " + intervalId));
+        user.getIntervalReview().remove(interval);
+        userRepository.save(user);
     }
 
     //Deletes all notes from a user's note review list

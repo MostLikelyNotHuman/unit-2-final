@@ -26,7 +26,7 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                                 console.log(json);
                                 if (!json.find((problem) => problem.id === correctAnswerObject.id)) {
                                     console.log(correctAnswerObject);
-                                    fetch(`http://localhost:8080/users/1/${correctAnswerObject.id}/notes`, {
+                                    fetch(`http://localhost:8080/users/1/notes/${correctAnswerObject.id}`, {
                                         method: "POST",
                                         body: JSON.stringify({
                                             correctAnswer

@@ -38,7 +38,7 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                                 console.log(json);
                                 if(!json.find((problem) => problem.id === correctAnswerObject.id)) {
                                     console.log(correctAnswerObject);
-                                    fetch(`http://localhost:8080/users/1/${correctAnswerObject.id}/intervals`, {
+                                    fetch(`http://localhost:8080/users/1/intervals/${correctAnswerObject.id}`, {
                                         method: "POST",
                                         body: JSON.stringify({
                                             correctAnswer
