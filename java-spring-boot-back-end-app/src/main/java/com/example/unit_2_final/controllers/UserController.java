@@ -55,6 +55,7 @@ public class UserController {
         return note;
     }
 
+    //Deletes a note from user's note review list
     @DeleteMapping("/users/{userId}/{noteId}/notes")
     public void deleteNoteFromUserNotes(@PathVariable int userId, @PathVariable int noteId) {
 
@@ -62,20 +63,12 @@ public class UserController {
         Note note = noteRepository.findById(noteId).orElseThrow(() -> new RuntimeException("Note not found with id: " + noteId));
         user.getNoteReview().remove(note);
     }
-}
 
-//
-//    //Retrieve all intervals in an user's interval review list
-//    @GetMapping("/users/{id}/intervals")
-//    public List<Interval> getUserIntervals(@PathVariable int id) {
-//        return userRepository.findById(id).orElse(null).getIntervalReview();
-//        //TODO: deal with exception
-//    }
-//
-//    //Updates user's interval review list
-//    @PutMapping("/users/{id}/intervals")
-//    public List<Interval> updateUserIntervals(@PathVariable int id, @RequestBody User user, List<Interval> intervalReview) {
-//        user.setIntervalReview(intervalReview);
-//        return userRepository.save(user).getIntervalReview();
-//    }
-//}
+    //Deletes all notes from a user's note review list
+    @DeleteMapping("/users/{userId}/notes")
+    public void deleteAllNotesFromUserNotes(@PathVariable int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        user.getNoteReview().clear();
+        userRepository.save(user);
+    }
+}

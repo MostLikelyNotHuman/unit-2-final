@@ -58,6 +58,9 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                             <Button
                                 text={'Clear Notes Review'}
                                 onClick={() => {
+                                    fetch("http://localhost:8080/users/1/notes", {
+                                        method: "DELETE"
+                                    })
                                     setReviewNotes([]);
                                 }}
                             /> 
