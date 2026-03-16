@@ -1,7 +1,7 @@
 import Button from "./pieces/Button";
 import { useEffect, useState } from "react";
 
-const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserNote, setNewUserNote }) => {
+const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserNote, setNewUserNote, key, noteId}) => {
 
     const [ listItemVisible, setListItemVisible ] = useState(false);
     const [ editButtonText, setEditButtonText ] = useState("Edit");
@@ -11,25 +11,24 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
         field(value);
     }
 
-    const removeListItem = (id) => {
-        console.log(id);
-        fetch(`http://localhost:8080/users/user-notes/${id}`, {
+    const removeListItem = () => {
+        fetch(`http://localhost:8080/users/user-notes/${noteId}`, {
             method: "DELETE"
         })
         .then(() => {
-            setUserNotes(list => list.filter(userNote => userNote.id !== id));
+            setUserNotes(list => list.filter(n => n.id !== noteId));
         })
     }
 
     return (
         <>
             <li 
-            key={userNote.id}
-            id={userNote.Id}
+            key={key}
+            id={noteId}
             >
                 <div
                 hidden={listItemVisible}
-                >{userNote.noteBody}</div>
+                >{noteContent}</div>
                 <div
                 hidden={!listItemVisible}
                 >
@@ -44,10 +43,23 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
                     id="edit-list-item"
                     text={editButtonText}
                     onClick={() => {
-                        
                         if(listItemVisible) {
                             setListItemVisible(false);
                             setEditButtonText("Edit");
+                            fetch(`http://localhost:8080/users/1/user-notes/${noteId}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    userId: 1,
+                                    noteBody: noteContent
+                                })
+                            })
+                            
+                            let updatedUserNotes = [...userNotes];
+                            updatedUserNotes[userNote.id].noteBody = noteContent;
+                            setUserNotes(updatedUserNotes);
                         } else {
                             setListItemVisible(true);
                             setEditButtonText("Save");
@@ -58,9 +70,7 @@ const UserNoteItem = ({ userNote, setUserNote, userNotes, setUserNotes, newUserN
                 <Button
                     id="remove-list-item"
                     text="Remove"  
-                    onClick={() => {
-                        removeListItem(userNote.id);
-                    }}                                 
+                    onClick={removeListItem}                                 
                 />
 
 

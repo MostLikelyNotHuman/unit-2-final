@@ -1,5 +1,6 @@
 package com.example.unit_2_final.controllers;
 
+import com.example.unit_2_final.models.Note;
 import com.example.unit_2_final.models.User;
 import com.example.unit_2_final.models.UserNote;
 import com.example.unit_2_final.repositories.UserNotesRepository;
@@ -39,6 +40,14 @@ public class UserNoteController {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
         userNote.setUser(user);
 
+        return userNotesRepository.save(userNote);
+    }
+
+    //Edit user note
+    @PutMapping("/users/{userId}/user-notes/{id}")
+    public UserNote updateUserNote(@PathVariable int userId, @PathVariable int id, @RequestBody UserNote updatedUserNote) {
+        UserNote userNote = userNotesRepository.findById(id).orElseThrow(() -> new RuntimeException("User note not found with id: " + id));
+        userNote.setNoteBody(updatedUserNote.getNoteBody());
         return userNotesRepository.save(userNote);
     }
 

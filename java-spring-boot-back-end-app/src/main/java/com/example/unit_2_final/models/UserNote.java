@@ -14,6 +14,9 @@ public class UserNote {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private UserNote() {
+    }
+
     public UserNote(String noteBody, User user) {
         this.noteBody = noteBody;
         this.user = user;
@@ -25,9 +28,6 @@ public class UserNote {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    private UserNote() {
     }
 
     public String getNoteBody() {

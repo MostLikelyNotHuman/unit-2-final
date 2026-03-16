@@ -104,6 +104,8 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                 {console.log(userNotes)}
                                 {userNotes.map(customUserNote =>
                                     <UserNoteItem
+                                        key={customUserNote.id}
+                                        noteId={customUserNote.id}
                                         userNote={customUserNote}
                                         userNotes={userNotes}
                                         setUserNotes={setUserNotes}
