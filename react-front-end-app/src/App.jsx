@@ -28,7 +28,8 @@ function App() {
           isLoggedIn={isLoggedIn}/>} />
         <Route path="/practice-intervals" element={<IntervalPractice 
           intervalsReview={reviewIntervals}
-          setIntervalsReview={setReviewIntervals}/>} />
+          setIntervalsReview={setReviewIntervals}
+          isLoggedIn={isLoggedIn}/>} />
         <Route path="/review" element={<ReviewPage
           reviewNotes={reviewNotes}
           setReviewNotes={setReviewNotes}

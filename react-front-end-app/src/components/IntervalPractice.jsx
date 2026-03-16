@@ -3,33 +3,29 @@ import { intervals } from "../assets/intervals";
 import { useEffect, useRef, useState } from "react";
 import QuizBoxIntervals from "./pieces/QuizBoxIntervals";
 
-const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
+const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) => {
 
     const [ questionImage, setQuestionImage ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const correctAnswer = useRef('');
-    const [selected, setSelected] = useState(null);
+    const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
+    const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
 
     async function retrieveQuestion() {
 
         let valueCompare = [];
-            // declaring comparison array
         let correctValue;
-            // declaring correctValue
         let images = [];
-            // declaring images array
         let answersArray = [];
-            // declaring answers array
         correctAnswer.current = '';
-            // setting correct answer text
-
 
         let notes = await fetch("http://localhost:8080/notes")
             .then(function(response) {
                 return response.json();
             })
 
+        // Grab two note objects to compare
         for (let i = 0; i < 2; i++) {
             const correctRNG = Math.floor(Math.random() * notes.length);
             const newNote = notes[correctRNG];
@@ -38,6 +34,7 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
             images.push(newNote.imageurl);
         }
 
+        // Reverse array for proper formatting in quizbox
         if (valueCompare[0].pitch < valueCompare[1].pitch) {
             images.reverse();
         }
@@ -55,6 +52,8 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
         intervals.splice(0,1);
 
         console.log("correctAnswer before loop:", correctAnswer.current);
+        
+        // Assigning correct object to correctAnswer and correctAnswerObject to pass down
         for (let i = 0; i < intervals.length; i++) {
             console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
             console.log(intervals.map(i => i.size));
@@ -62,11 +61,13 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
             if (intervals[i].size === correctValue) {
                 answersArray.push(intervals[i]);
                 correctAnswer.current = intervals[i].name;
+                setCorrectAnswerObject(intervals[i]);
                 intervals.splice(i, 1);
                 break;
             }
         }
 
+        // Generate incorrect answers
         for (let i = 0; i < 3; i++) {
             let incorrectRNG = Math.floor(Math.random() * intervals.length);
             let incorrectAnswer = intervals[incorrectRNG];
@@ -89,11 +90,13 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
                 questionImage={questionImage}
                 answers={answers}
                 correctAnswer={correctAnswer.current}
+                correctAnswerObject={correctAnswerObject}
                 intervalsReview={intervalsReview}
                 setIntervalsReview={setIntervalsReview}
                 selected={selected}
                 onSelect={setSelected}
                 answerDisabled={answerDisabled}
+                isLoggedIn={isLoggedIn}
                 nextClick={() => {
                     setSelected(null);
                     retrieveQuestion();

@@ -9,7 +9,7 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     const [ answers, setAnswers ] = useState([]);
     const correctAnswer = useRef('');
     const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
-    const [selected, setSelected] = useState(null);
+    const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     
     const retrieveQuestion = () => {
