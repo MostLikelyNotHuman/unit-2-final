@@ -31,7 +31,7 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
             const newNote = notes[correctRNG];
             notes.splice(correctRNG, 1);
             valueCompare.push(newNote);
-            images.push(newNote.imageurl);
+            images.push(newNote.imageURL);
         }
 
         // Reverse array for proper formatting in quizbox
