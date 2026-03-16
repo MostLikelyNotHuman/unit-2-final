@@ -11,7 +11,7 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
     const [selected, setSelected] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
 
-    const retrieveQuestion = () => {
+    async function retrieveQuestion() {
 
         let valueCompare = [];
             // declaring comparison array
@@ -24,118 +24,59 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
         correctAnswer.current = '';
             // setting correct answer text
 
-        let notes = fetch("http://localhost:8080/notes")
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(json) {
-                console.log(json)
-                for (let i = 0; i < 2; i++) {
-                    const correctRNG = Math.floor(Math.random() * json.length);
-                    const newNote = json[correctRNG];
-                    json.splice(correctRNG, 1);
-                    valueCompare.push(newNote);
-                    images.push(newNote.imageurl);
-                }
-                if (valueCompare[0].pitch < valueCompare[1].pitch) {
-                    images.reverse();
-                }
-                setQuestionImage(images);
-                correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
-                console.log(correctValue);
 
-            })
-        let intervals = fetch("http://localhost:8080/intervals")
+        let notes = await fetch("http://localhost:8080/notes")
             .then(function(response) {
                 return response.json();
             })
-            .then(function(json) {
-                console.log(json);
-                json.splice(0,1);
-                for (let i = 0; i < json.length && !correctAnswer.current; i++) {
-                    console.log(json[i].size)
-                    if (json[i].size === correctValue) {
-                        answersArray.push(json[i]);
-                        correctAnswer.current = json[i].name;
-                        json.splice(i, 1);
-                    }
-                }
-                for (let i = 0; i < 3; i++) {
-                    let incorrectRNG = Math.floor(Math.random() * json.length);
-                    let incorrectAnswer = json[incorrectRNG];
-                    answersArray.push(incorrectAnswer);            
-                    json.splice(incorrectRNG, 1);
-                    }
-                answersArray.sort(() => Math.random() - 0.5);
-                setAnswers(answersArray); 
-            })
- 
+
+        for (let i = 0; i < 2; i++) {
+            const correctRNG = Math.floor(Math.random() * notes.length);
+            const newNote = notes[correctRNG];
+            notes.splice(correctRNG, 1);
+            valueCompare.push(newNote);
+            images.push(newNote.imageurl);
         }
 
+        if (valueCompare[0].pitch < valueCompare[1].pitch) {
+            images.reverse();
+        }
 
+        setQuestionImage(images);
+        correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
+        console.log(correctValue);
 
+        let intervals = await fetch("http://localhost:8080/intervals")
+            .then(function(response) {
+                return response.json();
+            })
 
-                            //     onClick={async(e) => {
-                            // if (newUserNote) {
-                            //     const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
-                            //         method: "POST",
-                            //         body: JSON.stringify({
-                            //             noteBody: newUserNote
-                            //         }),
-                            //         headers: {
-                            //             "Content-type": "application/json; charset=UTF-8"
-                            //         }
-                            //     }).then(function(response) {
-                            //         return response.json();
-                            //     })
-                            //     setUserNotes(notes => [...notes, newNote]);
-                            //     setNewUserNote("");
-                            // }}
-    //     let editedNotes = [...notes];
-            // retrieving full notes array into 'editednotes' to edit
-    //     let valueCompare = [];
-            // declaring comparison array
-    //     let correctValue;
-            // declaring correctValue
-    //     let images = [];
-            // declaring images array
-    //     let answersArray = [];
-            // declaring answers array
-    //     correctAnswer.current = '';
-            // setting correct answer text
+        console.log(intervals);
+        intervals.splice(0,1);
 
-    //     for (let i = 0; i < 2; i++) {
-    //         const correctRNG = Math.floor(Math.random() * editedNotes.length);
-    //         const newNote = editedNotes[correctRNG];
-    //         editedNotes.splice(correctRNG, 1);
-    //         valueCompare.push(newNote);
-    //         images.push(newNote.img);
-    //     }
-    //     if (valueCompare[0].pitch < valueCompare[1].pitch) {
-    //         images.reverse();
-    //     }
-    //     setQuestionImage(images);
-    //     correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
+        console.log("correctAnswer before loop:", correctAnswer.current);
+        for (let i = 0; i < intervals.length; i++) {
+            console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
+            console.log(intervals.map(i => i.size));
+            
+            if (intervals[i].size === correctValue) {
+                answersArray.push(intervals[i]);
+                correctAnswer.current = intervals[i].name;
+                intervals.splice(i, 1);
+                break;
+            }
+        }
 
-    //     let editedIntervals = [...intervals];
-    //     editedIntervals.splice(0, 1);    
-    //     for (let i = 0; i < editedIntervals.length && !correctAnswer.current; i++) {
-    //         if (editedIntervals[i].size === correctValue) {
-    //             answersArray.push(editedIntervals[i].name)
-    //             correctAnswer.current = editedIntervals[i].name;
-    //             editedIntervals.splice(i, 1);
-    //         }
-    //     }
-        
-    //     for (let i = 0; i < 3; i++) {
-    //         let incorrectRNG = Math.floor(Math.random() * editedNotes.length);
-    //         let incorrectAnswer = editedIntervals[incorrectRNG];
-    //         answersArray.push(incorrectAnswer.name);            
-    //         editedIntervals.splice(incorrectRNG, 1);
-    //         }
-    //     answersArray.sort(() => Math.random() - 0.5);
-    //     setAnswers(answersArray);        
-    // }
+        for (let i = 0; i < 3; i++) {
+            let incorrectRNG = Math.floor(Math.random() * intervals.length);
+            let incorrectAnswer = intervals[incorrectRNG];
+            answersArray.push(incorrectAnswer);            
+            intervals.splice(incorrectRNG, 1);
+        }
+
+        answersArray.sort(() => Math.random() - 0.5);
+        setAnswers(answersArray); 
+    }
     
     useEffect(() => {
         retrieveQuestion();
