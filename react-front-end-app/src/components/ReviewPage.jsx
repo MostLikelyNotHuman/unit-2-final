@@ -2,6 +2,7 @@ import Button from "./pieces/Button";
 import { useEffect, useState } from "react";
 import './ReviewPage.css';
 import UserNoteItem from "./UserNoteItem";
+import UserReviewItem from "./UserReviewItem";
 
 const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
     
@@ -51,7 +52,15 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {reviewNotes.length ?
                         <div id="review-notes">
                             <ul>
-                                {reviewNotes.map(problem => <li key={`notes-${problem.text}`}>{problem.text}</li>)}
+                                {reviewNotes.map(reviewItem => 
+                                    <UserReviewItem
+                                        key={reviewItem.id}
+                                        deleteEndpoint={`http://localhost:8080/users/1/notes/${reviewItem.id}`}
+                                        setFunction={setReviewNotes}
+                                        reviewItemId={reviewItem.id}
+                                        reviewItemText={reviewItem.text}
+                                    ></UserReviewItem>
+                                )}
                             </ul>
                             <Button
                                 text={'Clear Notes Review'}
@@ -76,7 +85,15 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {reviewIntervals.length ?
                         <div id="review-intervals">
                             <ul>
-                                {reviewIntervals.map(problem => <li key={`intervals-${problem.name}`}>{problem.name}</li>)}
+                                {reviewIntervals.map(reviewItem => 
+                                    <UserReviewItem
+                                        key={reviewItem.id}
+                                        deleteEndpoint={`http://localhost:8080/users/1/intervals/${reviewItem.id}`}
+                                        setFunction={setReviewIntervals}
+                                        reviewItemId={reviewItem.id}
+                                        reviewItemText={reviewItem.name}
+                                    ></UserReviewItem>
+                                )}
                             </ul>
                             <Button
                                 text={'Clear Intervals Review'}
@@ -93,7 +110,6 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 </>
                 : <p>Please log in to store and view interval review</p>
             }
-
             <h4>User Notes: </h4>
 
             {isLoggedIn ?
@@ -115,7 +131,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                 )}
                             </ul>
                         </div>
-                        : <p>No user notes</p>           
+                        : <p>Use this space to save any personal notes you might want to keep around, like musical ideas or practice methods!</p>           
                     }
                     <input
                         type="text" 
