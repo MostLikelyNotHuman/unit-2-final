@@ -12,6 +12,7 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
         <div id='quizBox'>
             <h4>{questionText}</h4>
             <div id="question-content">
+                {console.log(questionImage)}
                 <img src={questionImage}></img>
             </div>
             <div id="next-div">
