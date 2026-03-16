@@ -90,6 +90,9 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                             <Button
                                 text={'Clear Intervals Review'}
                                 onClick={() => {
+                                    fetch("http://localhost:8080/users/1/intervals", {
+                                        method: "DELETE"
+                                    })
                                     setReviewIntervals([]);
                                 }}
                             /> 
