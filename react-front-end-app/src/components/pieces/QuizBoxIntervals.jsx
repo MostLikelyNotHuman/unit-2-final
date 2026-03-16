@@ -29,9 +29,9 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
             </div>
             <div id="next-div">
                 <Button onClick={() => {
-                    if (!intervalsReview.find((problem) => problem === correctAnswer)) {
-                        setIntervalsReview([...intervalsReview, correctAnswer])
-                    }
+                    // if (!intervalsReview.find((problem) => problem === correctAnswer)) {
+                    //     setIntervalsReview([...intervalsReview, correctAnswer])
+                    // }
                 }} 
                 text={'Add to Review'}/>
                 <Button onClick={() => {

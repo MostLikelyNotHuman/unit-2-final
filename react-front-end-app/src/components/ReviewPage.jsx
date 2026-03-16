@@ -22,16 +22,15 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
     }
 
     useEffect(() => {
-        fetch("http://localhost:8080/users/1")
+        fetch("http://localhost:8080/users/1/notes")
             .then(function(response) {
                 return response.json();
             })
             .then(function(json) {
-                console.log(json);
-                setReviewNotes(json.noteReview); 
-                setReviewIntervals(json.intervalReview);
-            })  
-        fetch("http://localhost:8080/users/1/notes")
+                setReviewNotes(json || [])
+                setReviewIntervals(json || [])
+            })
+        fetch("http://localhost:8080/users/1/user-notes")
             .then(function(response) {
                 return response.json();
             })
@@ -54,11 +53,14 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {reviewNotes.length ?
                         <div id="review-notes">
                             <ul>
-                                {reviewNotes.map(problem => <li key={problem}>{problem}</li>)}
+                                {reviewNotes.map(problem => <li key={`notes-${problem.text}`}>{problem.text}</li>)}
                             </ul>
                             <Button
                                 text={'Clear Notes Review'}
                                 onClick={() => {
+                                    fetch("http://localhost:8080/users/1/notes", {
+                                        method: "DELETE"
+                                    })
                                     setReviewNotes([]);
                                 }}
                             /> 
@@ -76,7 +78,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {reviewIntervals.length ?
                         <div id="review-intervals">
                             <ul>
-                                {reviewIntervals.map(problem => <li key={problem}>{problem}</li>)}
+                                {reviewIntervals.map(problem => <li key={`intervals-${problem.text}`}>{problem.text}</li>)}
                             </ul>
                             <Button
                                 text={'Clear Intervals Review'}
@@ -100,7 +102,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                             <ul>
                                 {console.log(userNotes)}
                                 {userNotes.map(userNote =>
-                                    <li key={userNote.id} id={userNote.id}>
+                                    <li key={`usernotes-${userNote.id}`} id={userNote.id}>
                                         {userNote.noteBody}
                                         <Button
                                             onClick={() => {
@@ -108,6 +110,13 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                             }}
                                             id="remove-list-item"
                                             text="Remove"                                        
+                                        />
+                                        <Button 
+                                            onClick={() => {
+
+                                            }}
+                                            id="edit-list-item"
+                                            text="Edit"
                                         />
                                     </li>
                                 )}
@@ -124,7 +133,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     <Button 
                         onClick={async(e) => {
                             if (newUserNote) {
-                                const newNote = await fetch("http://localhost:8080/users/1/notes", {
+                                const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
                                     method: "POST",
                                     body: JSON.stringify({
                                         noteBody: newUserNote
