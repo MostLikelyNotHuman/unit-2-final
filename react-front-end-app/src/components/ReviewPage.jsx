@@ -28,6 +28,12 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
             })
             .then(function(json) {
                 setReviewNotes(json || [])
+            })
+        fetch("http://localhost:8080/users/1/intervals")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
                 setReviewIntervals(json || [])
             })
         fetch("http://localhost:8080/users/1/user-notes")
@@ -37,6 +43,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
             .then(function(json) {
                 setUserNotes(json || [])
             })
+        
     }, []);
   
     return (
@@ -78,11 +85,14 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {reviewIntervals.length ?
                         <div id="review-intervals">
                             <ul>
-                                {reviewIntervals.map(problem => <li key={`intervals-${problem.text}`}>{problem.text}</li>)}
+                                {reviewIntervals.map(problem => <li key={`intervals-${problem.name}`}>{problem.name}</li>)}
                             </ul>
                             <Button
                                 text={'Clear Intervals Review'}
                                 onClick={() => {
+                                    fetch("http://localhost:8080/users/1/intervals", {
+                                        method: "DELETE"
+                                    })
                                     setReviewIntervals([]);
                                 }}
                             /> 

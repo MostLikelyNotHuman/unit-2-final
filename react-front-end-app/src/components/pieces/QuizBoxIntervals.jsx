@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css';
 
-const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer, selected, onSelect, intervalsReview, setIntervalsReview, nextClick }) => {
+const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, intervalsReview, setIntervalsReview, nextClick, isLoggedIn }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
@@ -29,10 +29,30 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
             </div>
             <div id="next-div">
                 <Button onClick={() => {
-                    // if (!intervalsReview.find((problem) => problem === correctAnswer)) {
-                    //     setIntervalsReview([...intervalsReview, correctAnswer])
-                    // }
-                }} 
+                    if(isLoggedIn) {
+                        const userReviewIntervals = fetch("http://localhost:8080/users/1/intervals")
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(json) {
+                                console.log(json);
+                                if(!json.find((problem) => problem.id === correctAnswerObject.id)) {
+                                    console.log(correctAnswerObject);
+                                    fetch(`http://localhost:8080/users/1/${correctAnswerObject.id}/intervals`, {
+                                        method: "POST",
+                                        body: JSON.stringify({
+                                            correctAnswer
+                                        }),
+                                        headers: {
+                                            "Content-type": "application/json; charset=UTF-8"
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                } 
+                id={'add-review-button'}
                 text={'Add to Review'}/>
                 <Button onClick={() => {
                     nextClick();
@@ -49,14 +69,16 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                     let className = "answer";
 
                     if (selected) {
-                        if (a === correctAnswer) className += "-correct";
+                        console.log(correctAnswer);
+                        if (a.name === correctAnswer) className += "-correct";
                         else if (a === selected) className += "-incorrect";
                     }
 
                     return (
                         <Button
-                            key={a}
-                            text={a}
+                            key={a.id}
+                            id={a.id}
+                            text={a.name}
                             className={className}
                             disabled={answerDisabled}
                             onClick={() => {

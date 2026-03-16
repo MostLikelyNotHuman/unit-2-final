@@ -1,5 +1,6 @@
 package com.example.unit_2_final.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class Note {
     private String imageURL;
     private String audio;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "noteReview")
     private List<User> userList;
 

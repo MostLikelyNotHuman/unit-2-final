@@ -3,54 +3,80 @@ import { intervals } from "../assets/intervals";
 import { useEffect, useRef, useState } from "react";
 import QuizBoxIntervals from "./pieces/QuizBoxIntervals";
 
-const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
+const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) => {
 
     const [ questionImage, setQuestionImage ] = useState([]);
     const [ answers, setAnswers ] = useState([]);
     const correctAnswer = useRef('');
-    const [selected, setSelected] = useState(null);
+    const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
+    const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
 
-    const retrieveQuestion = () => {
+    async function retrieveQuestion() {
 
-        let editedNotes = [...notes];
         let valueCompare = [];
         let correctValue;
         let images = [];
         let answersArray = [];
         correctAnswer.current = '';
 
+        let notes = await fetch("http://localhost:8080/notes")
+            .then(function(response) {
+                return response.json();
+            })
+
+        // Grab two note objects to compare
         for (let i = 0; i < 2; i++) {
-            const correctRNG = Math.floor(Math.random() * editedNotes.length);
-            const newNote = editedNotes[correctRNG];
-            editedNotes.splice(correctRNG, 1);
+            const correctRNG = Math.floor(Math.random() * notes.length);
+            const newNote = notes[correctRNG];
+            notes.splice(correctRNG, 1);
             valueCompare.push(newNote);
-            images.push(newNote.img);
+            images.push(newNote.imageurl);
         }
+
+        // Reverse array for proper formatting in quizbox
         if (valueCompare[0].pitch < valueCompare[1].pitch) {
             images.reverse();
         }
+
         setQuestionImage(images);
         correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
+        console.log(correctValue);
 
-        let editedIntervals = [...intervals];
-        editedIntervals.splice(0, 1);    
-        for (let i = 0; i < editedIntervals.length && !correctAnswer.current; i++) {
-            if (editedIntervals[i].size === correctValue) {
-                answersArray.push(editedIntervals[i].name)
-                correctAnswer.current = editedIntervals[i].name;
-                editedIntervals.splice(i, 1);
+        let intervals = await fetch("http://localhost:8080/intervals")
+            .then(function(response) {
+                return response.json();
+            })
+
+        console.log(intervals);
+        intervals.splice(0,1);
+
+        console.log("correctAnswer before loop:", correctAnswer.current);
+        
+        // Assigning correct object to correctAnswer and correctAnswerObject to pass down
+        for (let i = 0; i < intervals.length; i++) {
+            console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
+            console.log(intervals.map(i => i.size));
+            
+            if (intervals[i].size === correctValue) {
+                answersArray.push(intervals[i]);
+                correctAnswer.current = intervals[i].name;
+                setCorrectAnswerObject(intervals[i]);
+                intervals.splice(i, 1);
+                break;
             }
         }
-        
+
+        // Generate incorrect answers
         for (let i = 0; i < 3; i++) {
-            let incorrectRNG = Math.floor(Math.random() * editedNotes.length);
-            let incorrectAnswer = editedIntervals[incorrectRNG];
-            answersArray.push(incorrectAnswer.name);            
-            editedIntervals.splice(incorrectRNG, 1);
-            }
+            let incorrectRNG = Math.floor(Math.random() * intervals.length);
+            let incorrectAnswer = intervals[incorrectRNG];
+            answersArray.push(incorrectAnswer);            
+            intervals.splice(incorrectRNG, 1);
+        }
+
         answersArray.sort(() => Math.random() - 0.5);
-        setAnswers(answersArray);        
+        setAnswers(answersArray); 
     }
     
     useEffect(() => {
@@ -64,11 +90,13 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview }) => {
                 questionImage={questionImage}
                 answers={answers}
                 correctAnswer={correctAnswer.current}
+                correctAnswerObject={correctAnswerObject}
                 intervalsReview={intervalsReview}
                 setIntervalsReview={setIntervalsReview}
                 selected={selected}
                 onSelect={setSelected}
                 answerDisabled={answerDisabled}
+                isLoggedIn={isLoggedIn}
                 nextClick={() => {
                     setSelected(null);
                     retrieveQuestion();

@@ -1,5 +1,6 @@
 package com.example.unit_2_final.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class Interval {
     private String name;
     private String imageURL;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "intervalReview")
     private List<User> userList;
 
