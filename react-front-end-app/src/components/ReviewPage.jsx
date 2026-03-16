@@ -13,7 +13,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
 
     const removeListItem = (id) => {
         console.log(id);
-        fetch(`http://localhost:8080/users/notes/${id}`, {
+        fetch(`http://localhost:8080/users/user-notes/${id}`, {
             method: "DELETE"
         })
         .then(() => {
