@@ -1,6 +1,7 @@
 import Button from "./pieces/Button";
 import { useEffect, useState } from "react";
 import './ReviewPage.css';
+import UserNoteItem from "./UserNoteItem";
 
 const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
     
@@ -9,16 +10,6 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
 
     const handleChange = (field, value) => {
         field(value);
-    }
-
-    const removeListItem = (id) => {
-        console.log(id);
-        fetch(`http://localhost:8080/users/user-notes/${id}`, {
-            method: "DELETE"
-        })
-        .then(() => {
-            setUserNotes(list => list.filter(userNote => userNote.id !== id));
-        })
     }
 
     useEffect(() => {
@@ -111,28 +102,18 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         <div id="user-notes">
                             <ul>
                                 {console.log(userNotes)}
-                                {userNotes.map(userNote =>
-                                    <li key={`usernotes-${userNote.id}`} id={userNote.id}>
-                                        {userNote.noteBody}
-                                        <Button
-                                            onClick={() => {
-                                                removeListItem(userNote.id);
-                                            }}
-                                            id="remove-list-item"
-                                            text="Remove"                                        
-                                        />
-                                        <Button 
-                                            onClick={() => {
-
-                                            }}
-                                            id="edit-list-item"
-                                            text="Edit"
-                                        />
-                                    </li>
+                                {userNotes.map(customUserNote =>
+                                    <UserNoteItem
+                                        userNote={customUserNote}
+                                        userNotes={userNotes}
+                                        setUserNotes={setUserNotes}
+                                        newUserNote={newUserNote}
+                                        setNewUserNote={setNewUserNote}
+                                    />
                                 )}
                             </ul>
-                        </div> :
-                        <p>No user notes yet saved</p>
+                        </div>
+                        : <p>No user notes</p>           
                     }
                     <input
                         type="text" 
@@ -141,7 +122,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         onChange={(e) => handleChange(setNewUserNote, e.target.value)}
                     />
                     <Button 
-                        onClick={async(e) => {
+                        onClick={async() => {
                             if (newUserNote) {
                                 const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
                                     method: "POST",
@@ -159,14 +140,13 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                             }}
                         }
                         id = "new-user-note-button"
-                        text = "Add User Note"
-                    />
+                        text = "Add User Note" 
+                    /> 
                 </>
-                : <p>Please log in to store and view personal notes</p>            
+                : <p>Please log in to store and view personal notes</p> 
             }      
         </main>
     );
-
 }
 
 
