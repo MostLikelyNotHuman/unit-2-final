@@ -41,7 +41,7 @@ const HelpPage = () => {
                             to a variety of exercises to strengthen your reading skills. Currently, 
                             you can find exercises to test your ability to recognize notes and intervals.</p>
                         <p> The goal is that you take the skills you learn here and go on to:</p>
-                        <ul>
+                        <ul id='about-bullets'>
                             <li>Read your favorite music!</li>
                             <li>Write your own music!</li>
                             <li>Transcribe your favorite songs!</li>

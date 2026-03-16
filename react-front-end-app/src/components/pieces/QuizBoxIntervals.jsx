@@ -29,10 +29,13 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
             </div>
             <div id="next-div">
                 <Button onClick={() => {
+
+                    //add fetch whatever
                     // if (!intervalsReview.find((problem) => problem === correctAnswer)) {
                     //     setIntervalsReview([...intervalsReview, correctAnswer])
                     // }
                 }} 
+                id={'add-review-button'}
                 text={'Add to Review'}/>
                 <Button onClick={() => {
                     nextClick();
@@ -49,14 +52,15 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                     let className = "answer";
 
                     if (selected) {
-                        if (a === correctAnswer) className += "-correct";
+                        if (a.text === correctAnswer) className += "-correct";
                         else if (a === selected) className += "-incorrect";
                     }
 
                     return (
                         <Button
-                            key={a}
-                            text={a}
+                            key={a.id}
+                            id={a.id}
+                            text={a.name}
                             className={className}
                             disabled={answerDisabled}
                             onClick={() => {
