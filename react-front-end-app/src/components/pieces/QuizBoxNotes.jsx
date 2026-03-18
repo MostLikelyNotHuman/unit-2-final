@@ -23,23 +23,25 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
         }
     }
 
-    async function updateReviewModeButton() {
+    const updateReviewModeButton = () => {
         if (isLoggedIn) {
             if (!reviewMode) {
-                const reviewModeNotes = await fetch ("http://localhost:8080/users/1/notes")
+                const reviewModeNotes = fetch ("http://localhost:8080/users/1/notes")
                     .then(function(response) {
                         return response.json();
                     })
-                console.log(reviewModeNotes);
-                if (reviewModeNotes.length) {
-                    setReviewModeText("Review Mode ON");
-                    console.log("review mode on");
-                    setReviewMode(true);
-                } else {
-                    setReviewModeText("Nothing to review!");
-                    console.log('nothing to review');
-                    setReviewMode(false);
-                }
+                    .then(function(json) {
+                        console.log(json);
+                        if (json.length) {
+                            setReviewModeText("Review Mode ON");
+                            console.log("review mode on");
+                            setReviewMode(true);
+                        } else {
+                            setReviewModeText("Nothing to review!");
+                            console.log('nothing to review');
+                            setReviewMode(false);
+                        }
+                    })
             } else {
                 setReviewModeText("Review Mode OFF");
                 console.log('review mode off');

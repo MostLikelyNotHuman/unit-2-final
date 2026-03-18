@@ -53,7 +53,8 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                     }
                 } 
                 id={'add-review-button'}
-                text={'Add to Review'}/>
+                text={'Add to Review'}
+                key={'add-review'}/>
                 <Button onClick={() => {
                     nextClick();
                     setAnswerDisabled(false);
@@ -62,7 +63,8 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                 }}
                 id={nextId}
                 disabled={nextDisabled}
-                text={"New Question ->"}/>
+                text={"New Question ->"}
+                key={'next-button'}/>
             </div>
             <div id="question-answers">
                {answers.map((a) => { //Maps four answers, adds styling for correct and incorrect answers once clicked on
@@ -73,7 +75,7 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                         if (a.name === correctAnswer) className += "-correct";
                         else if (a === selected) className += "-incorrect";
                     }
-
+                    console.log(answers);
                     return (
                         <Button
                             key={a.id}

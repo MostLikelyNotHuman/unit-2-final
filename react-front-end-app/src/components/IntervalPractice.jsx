@@ -12,7 +12,7 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
     const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
 
-    async function retrieveQuestion() {
+    const retrieveQuestion = () => {
 
         let valueCompare = [];
         let correctValue;
@@ -20,63 +20,55 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
         let answersArray = [];
         correctAnswer.current = '';
 
-        let notes = await fetch("http://localhost:8080/notes")
+        let notes = fetch("http://localhost:8080/notes")
             .then(function(response) {
                 return response.json();
             })
+            .then(function(json) {
+                for (let i = 0; i < 2; i++) {
+                    const correctRNG = Math.floor(Math.random() * json.length);
+                    const newNote = json[correctRNG];
+                    json.splice(correctRNG, 1);
+                    valueCompare.push(newNote);
+                    images.push(newNote.imageURL);
+                }
+                    // Reverse array for proper formatting in quizbox
+                if (valueCompare[0].pitch < valueCompare[1].pitch) {
+                    images.reverse();
+                }
 
-        // Grab two note objects to compare
-        for (let i = 0; i < 2; i++) {
-            const correctRNG = Math.floor(Math.random() * notes.length);
-            const newNote = notes[correctRNG];
-            notes.splice(correctRNG, 1);
-            valueCompare.push(newNote);
-            images.push(newNote.imageURL);
-        }
+                setQuestionImage(images);
+                correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
+                console.log(correctValue);
 
-        // Reverse array for proper formatting in quizbox
-        if (valueCompare[0].pitch < valueCompare[1].pitch) {
-            images.reverse();
-        }
+                let intervals = fetch("http://localhost:8080/intervals")
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(json) {
+                        json.splice(0,1);
+                            // Assigning correct object to correctAnswer and correctAnswerObject to pass down
+                        for (let i = 0; i < json.length; i++) {
+                            if (json[i].size === correctValue) {
+                                answersArray.push(json[i]);
+                                correctAnswer.current = json[i].name;
+                                setCorrectAnswerObject(json[i]);
+                                json.splice(i, 1);
+                                break;
+                            }
+                        }
+                            // Generate incorrect answers
+                        for (let i = 0; i < 3; i++) {
+                            let incorrectRNG = Math.floor(Math.random() * json.length);
+                            let incorrectAnswer = json[incorrectRNG];
+                            answersArray.push(incorrectAnswer);            
+                            json.splice(incorrectRNG, 1);
+                        }
 
-        setQuestionImage(images);
-        correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
-        console.log(correctValue);
-
-        let intervals = await fetch("http://localhost:8080/intervals")
-            .then(function(response) {
-                return response.json();
-            })
-
-        console.log(intervals);
-        intervals.splice(0,1);
-
-        console.log("correctAnswer before loop:", correctAnswer.current);
-        
-        // Assigning correct object to correctAnswer and correctAnswerObject to pass down
-        for (let i = 0; i < intervals.length; i++) {
-            console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
-            console.log(intervals.map(i => i.size));
-            
-            if (intervals[i].size === correctValue) {
-                answersArray.push(intervals[i]);
-                correctAnswer.current = intervals[i].name;
-                setCorrectAnswerObject(intervals[i]);
-                intervals.splice(i, 1);
-                break;
-            }
-        }
-
-        // Generate incorrect answers
-        for (let i = 0; i < 3; i++) {
-            let incorrectRNG = Math.floor(Math.random() * intervals.length);
-            let incorrectAnswer = intervals[incorrectRNG];
-            answersArray.push(incorrectAnswer);            
-            intervals.splice(incorrectRNG, 1);
-        }
-
-        answersArray.sort(() => Math.random() - 0.5);
-        setAnswers(answersArray); 
+                        answersArray.sort(() => Math.random() - 0.5);
+                        setAnswers(answersArray); 
+                    })
+            })       
     }
     
     useEffect(() => {
