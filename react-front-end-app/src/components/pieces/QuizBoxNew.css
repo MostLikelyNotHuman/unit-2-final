@@ -109,8 +109,6 @@
     font-size: 16px;
     justify-content: left;
     align-items: left;
-    
-
 }
 
 #quizBox #add-review-button button{
@@ -190,6 +188,7 @@
 
     #quizBox #next-div button,
     #quizBox #add-to-review button {
-        min-width: 170px;
+        min-width: 150px;
+        font-size: 18px;
     }
 }
