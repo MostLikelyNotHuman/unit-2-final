@@ -6,4 +6,7 @@ footer {
     align-items: center;
     height: 80px;
     font-size: 17px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
