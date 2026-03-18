@@ -1,16 +1,38 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css'
 
-const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn }) => {
+const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn, reviewMode, setReviewMode }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
     const [ nextId, setNextId ] = useState('next-button-disabled');
 
+    console.log(isLoggedIn);
+
     return(
         <div id='quizBox'>
-            <h4>{questionText}</h4>
+            <div id='box-header'>
+                <h4>
+                    {questionText}
+                </h4>
+                {isLoggedIn &&
+                    <Button 
+                        className={"notes-title-toggle"}
+                        text={reviewMode ? 'Review Mode ON' : 'Review Mode OFF'}
+                        id={"notes-title-toggle"}
+                        onClick={() => {
+                            if (!reviewMode) {
+                                setReviewMode(true);
+                                console.log('review on');
+                            } else {
+                                setReviewMode(false);
+                                console.log('review off');
+                            }
+                        }}
+                    />
+                }
+            </div>
             <div id="question-content">
                 {console.log(questionImage)}
                 <img src={questionImage}></img>

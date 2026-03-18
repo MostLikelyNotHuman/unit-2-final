@@ -11,7 +11,7 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
     const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
-    const [ reviewMode, setReviewMode ] = useState(true);
+    const [ reviewMode, setReviewMode ] = useState(false);
       
     const generateCorrectAnswer = (notes) => {
         let correctRNG = Math.floor(Math.random() * notes.length);
@@ -79,7 +79,7 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     return (
         <main className="notePracticeMain">
             <QuizBoxNotes 
-                questionText={'Practice - Notes'} 
+                questionText={'Notes Practice'} 
                 questionImage={questionImage}
                 answers={answers}
                 correctAnswer={correctAnswer.current}
@@ -90,6 +90,8 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
                 onSelect={setSelected}
                 answerDisabled={answerDisabled}
                 isLoggedIn={isLoggedIn}
+                reviewMode={reviewMode}
+                setReviewMode={setReviewMode}
                 nextClick={() => {
                     setSelected(null);
                     retrieveQuestion();
