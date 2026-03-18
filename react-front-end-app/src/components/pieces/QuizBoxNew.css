@@ -11,8 +11,19 @@
     position: relative;
 }
 
+#box-header {
+    display: flex;
+}
+
 #quizBox h4 {
     font-size: 25px;
+    margin: 50;
+}
+
+#quizBox #box-header button {
+    font-size: 25px;
+    width: 220px;
+    height: 60px;
 }
 
 #question-content {
@@ -170,6 +181,11 @@
     #quizBox {
         width: 85vw;
         min-width: 300px;
+    }
+
+    #quizBox #box-header button {
+        font-size: 20px;
+        width: 150px;
     }
     
     #question-answers {
