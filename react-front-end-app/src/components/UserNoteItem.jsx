@@ -1,5 +1,6 @@
 import Button from "./pieces/Button";
 import { useState } from "react";
+import './UserNoteItem.css';
 
 const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
 
@@ -42,7 +43,7 @@ const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
             <li 
             id={noteId}
             >
-                <div
+                <div id="user-note-item"
                 hidden={listItemVisible}
                 >{noteContent}</div>
                 <div
