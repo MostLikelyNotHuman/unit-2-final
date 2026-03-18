@@ -11,31 +11,56 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
     const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
+    const [ reviewMode, setReviewMode ] = useState(true);
     
+    let reviewModeNotes;
+    let newQuestion;
+    let correctRNG;
+    let answersArray;
+    
+    const generateCorrectAnswer = (notes) => {
+        correctRNG = Math.floor(Math.random() * notes.length);
+        newQuestion = notes[correctRNG];
+        setCorrectAnswerObject(newQuestion);
+        correctAnswer.current = newQuestion.text;
+        answersArray = [newQuestion];
+        setQuestionImage(newQuestion.imageURL);
+    }
+
     async function retrieveQuestion() {
 
+        reviewModeNotes = '';
+        newQuestion = {};
+        correctRNG = null;
+        answersArray = [];
 
         let notes = await fetch("http://localhost:8080/notes")
             .then(function(response) {
                 return response.json();
             })
            
-        console.log(notes);
+        // console.log(notes);
         notes.splice((notes.length-1), 1);
-        const correctRNG = Math.floor(Math.random() * notes.length);
-        const newQuestion = notes[correctRNG];
-        setCorrectAnswerObject(newQuestion);
-        notes.splice(correctRNG, 1);
-        console.log(newQuestion);
-        correctAnswer.current = newQuestion.text;
 
-        let answersArray = [newQuestion];
-        console.log(newQuestion);
-        console.log(newQuestion.imageURL);
-        setQuestionImage(newQuestion.imageURL);
+        if (reviewMode) {
+            reviewModeNotes = await fetch("http://localhost:8080/users/1/notes")
+                .then(function(response) {
+                    return response.json();
+                })
+            generateCorrectAnswer(reviewModeNotes);
+            for (let i = 0; i < notes.length; i++) {
+                if (newQuestion.id === notes[i].id) {
+                    notes.splice(i, 1);
+                    break;
+                }
+            }
+        } else {
+            generateCorrectAnswer(notes);
+            notes.splice(correctRNG, 1);
+        }
 
         for (let i = 0; i < 3; i++) {
-            // generates three incorrect answers
+                    // generates three incorrect answers
             let incorrectRNG = Math.floor(Math.random() * notes.length);
                     // - generates random number between 0 and length of edited notes array
             let incorrectAnswer = notes[incorrectRNG];
