@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
 
-    const [ hamburgerOpen, setHamburgerOpen ] = useState(false);
+    const [ hamburgerIsOpen, setHamburgerIsOpen ] = useState(false);
 
     return (
         <>
@@ -37,7 +37,28 @@ const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewMo
                         }}/>
                 </div>
                 <div id="hamburger-menu-div">
-                    <Hamburger toggled={hamburgerOpen} size={70} toggle={setHamburgerOpen} />
+                    <Hamburger toggled={hamburgerIsOpen} size={70} toggle={setHamburgerIsOpen} />
+                    {hamburgerIsOpen && (
+                        <div id="hamburger-menu-items">
+                            {routes.map((route) => {
+                                const { link, text } = route;
+                                return (
+                                    <Link to={link}>
+                                        <Button text={text}/>
+                                    </Link>
+                                );
+                            })}
+                            <div id="hamburger-menu-login">
+                                <Button 
+                                    text={!isLoggedIn ? "Log In" : "Log Out"}
+                                    onClick={() => {
+                                        !isLoggedIn ? setIsLoggedIn(true) : setIsLoggedIn(false);
+                                        reviewMode && setReviewMode(false);
+                                        setReviewModeText("Review Mode OFF");
+                                }}/>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </header>
         </>

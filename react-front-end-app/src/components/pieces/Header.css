@@ -71,25 +71,66 @@ header {
 
 @media (max-width: 800px) {
 
-#login-button-div {
-    visibility: hidden;
-    display: none;
+    #login-button-div {
+        visibility: hidden;
+        display: none;
+    }
 
-}
+    #header-nav-links {
+        visibility: hidden;
+        display: none;
+    }
 
-#header-nav-links {
-    visibility: hidden;
-    display: none;
-}
+    #hamburger-menu-div {
+        visibility: visible;
+        display: flex;
+        flex: 9;
+        align-items: end;
+        position: absolute;
+        top: 15px;
+        right: 5px;
+        flex-direction: column;
+        width: 80%;
+        z-index: 100;
+    }
 
-#hamburger-menu-div {
-    visibility: visible;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 15px;
-    right: 30px;
+    .hamburger-react {
+        position: inherit;
+        right: 20px;
+    }
 
-}
+    #hamburger-menu-items {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: inherit;
+        position: absolute;
+        right: 5px;
+        top: 72px;
+        outline-style: solid;
+        outline-width: 7px;
+        outline-color: rgb(162, 182, 230);
+    }
 
+    #hamburger-menu-items a, #hamburger-menu-login {
+        display: flex;
+        background-color: rgb(206, 221, 255);
+    }
+
+    #hamburger-menu-items button {
+        flex: 1 0 40%;
+        height: 80px;
+        margin: 15px;
+        background-color: white;
+        color: black;
+        font-size: 25px;
+        border-radius: 30px;
+        border-color: white;
+        border-width: 0px;
+        font-style: normal;
+    }
+
+    a {
+        text-decoration: none;
+    }
 }
