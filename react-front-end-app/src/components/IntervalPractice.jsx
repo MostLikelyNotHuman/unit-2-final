@@ -41,23 +41,17 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
 
         setQuestionImage(images);
         correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
-        console.log(correctValue);
 
         let intervals = await fetch("http://localhost:8080/intervals")
             .then(function(response) {
                 return response.json();
             })
 
-        console.log(intervals);
         intervals.splice(0,1);
 
-        console.log("correctAnswer before loop:", correctAnswer.current);
         
         // Assigning correct object to correctAnswer and correctAnswerObject to pass down
-        for (let i = 0; i < intervals.length; i++) {
-            console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
-            console.log(intervals.map(i => i.size));
-            
+        for (let i = 0; i < intervals.length; i++) {            
             if (intervals[i].size === correctValue) {
                 answersArray.push(intervals[i]);
                 correctAnswer.current = intervals[i].name;

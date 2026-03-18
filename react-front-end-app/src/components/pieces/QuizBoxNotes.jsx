@@ -12,14 +12,11 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
         if (isLoggedIn) {
             if (reviewMode) {
                 setReviewModeText("Review Mode ON");
-                console.log("review mode on")
             } else {
                 setReviewModeText("Review Mode OFF");
-                console.log("review mode off")
             }
         } else {
             setReviewModeText("Review Mode OFF");
-            console.log('not logged in');
         }
     }
 
@@ -30,24 +27,19 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                     .then(function(response) {
                         return response.json();
                     })
-                console.log(reviewModeNotes);
                 if (reviewModeNotes.length) {
                     setReviewModeText("Review Mode ON");
-                    console.log("review mode on");
                     setReviewMode(true);
                 } else {
                     setReviewModeText("Nothing to review!");
-                    console.log('nothing to review');
                     setReviewMode(false);
                 }
             } else {
                 setReviewModeText("Review Mode OFF");
-                console.log('review mode off');
                 setReviewMode(false);
             }
         } else {
             setReviewModeText("Review Mode OFF");
-            console.log('not logged in');
         }
     }
 
@@ -73,7 +65,6 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                 }
             </div>
             <div id="question-content">
-                {console.log(questionImage)}
                 <img src={questionImage}></img>
             </div>
             <div id="next-div">
@@ -84,9 +75,7 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                                 return response.json();
                             })
                             .then(function(json) {
-                                console.log(json);
                                 if (!json.find((problem) => problem.id === correctAnswerObject.id)) {
-                                    console.log(correctAnswerObject);
                                     fetch(`http://localhost:8080/users/1/notes/${correctAnswerObject.id}`, {
                                         method: "POST",
                                         body: JSON.stringify({

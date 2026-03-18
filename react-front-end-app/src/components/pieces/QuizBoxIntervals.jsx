@@ -35,9 +35,7 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                                 return response.json();
                             })
                             .then(function(json) {
-                                console.log(json);
                                 if(!json.find((problem) => problem.id === correctAnswerObject.id)) {
-                                    console.log(correctAnswerObject);
                                     fetch(`http://localhost:8080/users/1/intervals/${correctAnswerObject.id}`, {
                                         method: "POST",
                                         body: JSON.stringify({
@@ -69,7 +67,6 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                     let className = "answer";
 
                     if (selected) {
-                        console.log(correctAnswer);
                         if (a.name === correctAnswer) className += "-correct";
                         else if (a === selected) className += "-incorrect";
                     }

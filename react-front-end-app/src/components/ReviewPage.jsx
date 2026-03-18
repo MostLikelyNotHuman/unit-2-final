@@ -118,7 +118,6 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {userNotes.length ? 
                         <div id="user-notes">
                             <ul>
-                                {console.log(userNotes)}
                                 {userNotes.map(customUserNote =>
                                     <UserNoteItem
                                         key={customUserNote.id}

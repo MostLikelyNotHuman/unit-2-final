@@ -22,7 +22,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewMo
                     {routes.map((route) => {
                         const { link, text } = route;
                         return (
-                            <Link to={link}>
+                            <Link to={link}
+                                key={link}>
                                 <Button text={text}/>  
                             </Link>
                         );
@@ -43,7 +44,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewMo
                             {routes.map((route) => {
                                 const { link, text } = route;
                                 return (
-                                    <Link to={link}>
+                                    <Link to={link}
+                                        key={link}>
                                         <Button 
                                             text={text}
                                             onClick={() => {

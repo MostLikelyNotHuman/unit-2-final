@@ -30,7 +30,6 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
                 return response.json();
             })
            
-        // console.log(notes);
         notes.splice((notes.length-1), 1);
 
         if (reviewMode && isLoggedIn) {
@@ -48,7 +47,6 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
             answersArray.push(generated);
         } else {
             let generated = generateCorrectAnswer(notes);
-            console.log(generated);
             answersArray.push(generated);
             notes.splice(generated.id - 1, 1);
         }
