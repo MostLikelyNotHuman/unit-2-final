@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css'
 
@@ -7,6 +7,40 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
     const [ nextId, setNextId ] = useState('next-button-disabled');
+    const [ reviewModeText, setReviewModeText ] = useState('');
+
+    async function updateReviewMode() {
+        if (isLoggedIn) {
+            if (!reviewMode) {
+                const reviewModeNotes = await fetch ("http://localhost:8080/users/1/notes")
+                    .then(function(response) {
+                        return response.json();
+                    })
+                console.log(reviewModeNotes);
+                if (reviewModeNotes.length) {
+                    setReviewModeText("Review Mode ON");
+                    console.log("review mode on");
+                    setReviewMode(true);
+                } else {
+                    setReviewModeText("Nothing to review!");
+                    console.log('nothing to review');
+                    setReviewMode(false);
+                }
+            } else {
+                setReviewModeText("Review Mode OFF");
+                console.log('review mode off');
+                setReviewMode(false);
+            }
+        } else {
+            setReviewModeText("Review Mode OFF");
+            console.log('not logged in');
+        }
+    }
+
+    useEffect(() => {
+        updateReviewMode();
+    }, []);
+
 
     console.log(isLoggedIn);
 
@@ -19,16 +53,10 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                 {isLoggedIn &&
                     <Button 
                         className={"notes-title-toggle"}
-                        text={reviewMode ? 'Review Mode ON' : 'Review Mode OFF'}
+                        text={reviewModeText}
                         id={"notes-title-toggle"}
                         onClick={() => {
-                            if (!reviewMode) {
-                                setReviewMode(true);
-                                console.log('review on');
-                            } else {
-                                setReviewMode(false);
-                                console.log('review off');
-                            }
+                            updateReviewMode();
                         }}
                     />
                 }
