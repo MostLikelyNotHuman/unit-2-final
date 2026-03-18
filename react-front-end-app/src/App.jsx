@@ -16,16 +16,28 @@ function App() {
   const [ reviewNotes, setReviewNotes ] = useState([]);
   const [ reviewIntervals, setReviewIntervals ] = useState([]);
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ reviewMode, setReviewMode ] = useState(false);
+  const [ reviewModeText, setReviewModeText ] = useState('');
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+      <Header 
+        isLoggedIn={isLoggedIn} 
+        setIsLoggedIn={setIsLoggedIn}
+        reviewMode={reviewMode}
+        setReviewMode={setReviewMode}
+        reviewModeText={reviewModeText}
+        setReviewModeText={setReviewModeText}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/practice-notes" element={<NotePractice 
           notesReview={reviewNotes}
           setNotesReview={setReviewNotes}
-          isLoggedIn={isLoggedIn}/>} />
+          isLoggedIn={isLoggedIn}
+          reviewMode={reviewMode}
+          setReviewMode={setReviewMode}
+          reviewModeText={reviewModeText}
+          setReviewModeText={setReviewModeText}/>} />
         <Route path="/practice-intervals" element={<IntervalPractice 
           intervalsReview={reviewIntervals}
           setIntervalsReview={setReviewIntervals}
@@ -36,7 +48,9 @@ function App() {
           reviewIntervals={reviewIntervals}
           setReviewIntervals={setReviewIntervals} 
           isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}/>} />
+          setIsLoggedIn={setIsLoggedIn}
+          reviewMode={reviewMode}
+          setReviewMode={setReviewMode}/>} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>

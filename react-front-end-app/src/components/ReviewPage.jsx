@@ -4,7 +4,7 @@ import './ReviewPage.css';
 import UserNoteItem from "./UserNoteItem";
 import UserReviewItem from "./UserReviewItem";
 
-const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn }) => {
+const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode }) => {
     
     const [ userNotes, setUserNotes ] = useState([]);
     const [ newUserNote, setNewUserNote ] = useState('');
@@ -69,6 +69,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                         method: "DELETE"
                                     })
                                     setReviewNotes([]);
+                                    setReviewMode(false);
                                 }}
                             /> 
                         </div> :

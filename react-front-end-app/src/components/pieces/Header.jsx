@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import Button from "./Button";
 import './Header.css';
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
 
     return (
         <>
@@ -34,6 +34,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                     <Button text={!isLoggedIn ? "Log In" : "Log Out"}
                         onClick={() => {
                             !isLoggedIn ? setIsLoggedIn(true) : setIsLoggedIn(false);
+                            reviewMode && setReviewMode(false);
+                            setReviewModeText("Review Mode OFF");
                         }}/>
                 </div>
             </header>
