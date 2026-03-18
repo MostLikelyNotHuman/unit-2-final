@@ -37,6 +37,11 @@ header {
     margin-left: 20px;
 }
 
+#hamburger-menu-div {
+    visibility: hidden;
+    display: none;
+}
+
 #header-nav-links {
     display: flex;
     flex: 6;
@@ -45,7 +50,6 @@ header {
     align-items: center;
     margin-right: 20px;
 }
-
 
 #header-nav-links button {
     flex: 1 0 40%;
@@ -63,4 +67,29 @@ header {
 #header-nav-links button:hover,
 #header-home-link button:hover {
     background-color: rgb(197, 197, 197);
+}
+
+@media (max-width: 800px) {
+
+#login-button-div {
+    visibility: hidden;
+    display: none;
+
+}
+
+#header-nav-links {
+    visibility: hidden;
+    display: none;
+}
+
+#hamburger-menu-div {
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 15px;
+    right: 30px;
+
+}
+
 }
