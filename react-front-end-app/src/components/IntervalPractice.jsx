@@ -1,5 +1,3 @@
-import { intervals } from "../assets/intervals";
-// import { notes } from "../assets/notes";
 import { useEffect, useRef, useState } from "react";
 import QuizBoxIntervals from "./pieces/QuizBoxIntervals";
 
@@ -25,7 +23,7 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
                 return response.json();
             })
 
-        // Grab two note objects to compare
+            // Grab two note objects to compare
         for (let i = 0; i < 2; i++) {
             const correctRNG = Math.floor(Math.random() * notes.length);
             const newNote = notes[correctRNG];
@@ -34,30 +32,23 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
             images.push(newNote.imageURL);
         }
 
-        // Reverse array for proper formatting in quizbox
+            // Reverse array for proper formatting in quizbox
         if (valueCompare[0].pitch < valueCompare[1].pitch) {
             images.reverse();
         }
 
         setQuestionImage(images);
         correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
-        console.log(correctValue);
 
         let intervals = await fetch("http://localhost:8080/intervals")
             .then(function(response) {
                 return response.json();
             })
 
-        console.log(intervals);
         intervals.splice(0,1);
 
-        console.log("correctAnswer before loop:", correctAnswer.current);
-        
         // Assigning correct object to correctAnswer and correctAnswerObject to pass down
-        for (let i = 0; i < intervals.length; i++) {
-            console.log(intervals[i].size, typeof intervals[i].size, correctValue,  typeof correctValue)
-            console.log(intervals.map(i => i.size));
-            
+        for (let i = 0; i < intervals.length; i++) {            
             if (intervals[i].size === correctValue) {
                 answersArray.push(intervals[i]);
                 correctAnswer.current = intervals[i].name;

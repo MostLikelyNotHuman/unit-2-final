@@ -4,7 +4,7 @@ import './ReviewPage.css';
 import UserNoteItem from "./UserNoteItem";
 import UserReviewItem from "./UserReviewItem";
 
-const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode }) => {
+const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewIntervals, isLoggedIn, setReviewMode }) => {
     
     const [ userNotes, setUserNotes ] = useState([]);
     const [ newUserNote, setNewUserNote ] = useState('');
@@ -35,7 +35,6 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
             .then(function(json) {
                 setUserNotes(json || [])
             })
-        
     }, []);
   
     return (
@@ -111,6 +110,7 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                 </>
                 : <p>Please log in to store and view interval review</p>
             }
+
             <h4>User Notes: </h4>
 
             {isLoggedIn ?
@@ -118,7 +118,6 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                     {userNotes.length ? 
                         <div id="user-notes">
                             <ul>
-                                {console.log(userNotes)}
                                 {userNotes.map(customUserNote =>
                                     <UserNoteItem
                                         key={customUserNote.id}
@@ -171,6 +170,5 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
         </main>
     );
 }
-
 
 export default ReviewPage;
