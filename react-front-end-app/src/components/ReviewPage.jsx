@@ -145,9 +145,9 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         <p>{`${newUserNote.length}/250 ${newUserNote.length > 250 ? 'Too long!' : ''}`}</p>
                     </div>
                     <Button 
-                        onClick={async() => {
+                        onClick={() => {
                             if (newUserNote && newUserNote.length <= 250) {
-                                const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
+                                const newNote = fetch("http://localhost:8080/users/1/user-notes", {
                                     method: "POST",
                                     body: JSON.stringify({
                                         noteBody: newUserNote
@@ -155,11 +155,15 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                                     headers: {
                                         "Content-type": "application/json; charset=UTF-8"
                                     }
-                                }).then(function(response) {
+                                })
+                                .then(function(response) {
                                     return response.json();
                                 })
-                                setUserNotes(notes => [...notes, newNote]);
-                                setNewUserNote("");
+                                .then(function(json) {
+                                    setUserNotes(notes => [...notes, json]);
+                                    setNewUserNote("");
+                                })
+                                
                             }}
                         }
                         id = "new-user-note-button"
