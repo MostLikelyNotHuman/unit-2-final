@@ -1,6 +1,5 @@
 import Button from "./pieces/Button";
 import { useState } from "react";
-import './UserNoteItem.css';
 
 const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
 
