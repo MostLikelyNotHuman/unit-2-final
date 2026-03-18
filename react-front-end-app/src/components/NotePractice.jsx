@@ -12,27 +12,19 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ reviewMode, setReviewMode ] = useState(true);
-    
-    let reviewModeNotes;
-    let newQuestion;
-    let correctRNG;
-    let answersArray;
-    
+      
     const generateCorrectAnswer = (notes) => {
-        correctRNG = Math.floor(Math.random() * notes.length);
-        newQuestion = notes[correctRNG];
+        let correctRNG = Math.floor(Math.random() * notes.length);
+        let newQuestion = notes[correctRNG];
         setCorrectAnswerObject(newQuestion);
         correctAnswer.current = newQuestion.text;
-        answersArray = [newQuestion];
         setQuestionImage(newQuestion.imageURL);
+        return newQuestion;
     }
 
     async function retrieveQuestion() {
 
-        reviewModeNotes = '';
-        newQuestion = {};
-        correctRNG = null;
-        answersArray = [];
+        let answersArray = [];
 
         let notes = await fetch("http://localhost:8080/notes")
             .then(function(response) {
@@ -43,20 +35,23 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
         notes.splice((notes.length-1), 1);
 
         if (reviewMode) {
-            reviewModeNotes = await fetch("http://localhost:8080/users/1/notes")
+            let reviewModeNotes = await fetch("http://localhost:8080/users/1/notes")
                 .then(function(response) {
                     return response.json();
                 })
-            generateCorrectAnswer(reviewModeNotes);
+            let generated = generateCorrectAnswer(reviewModeNotes);
             for (let i = 0; i < notes.length; i++) {
-                if (newQuestion.id === notes[i].id) {
+                if (generated.id === notes[i].id) {
                     notes.splice(i, 1);
                     break;
                 }
             }
+            answersArray.push(generated);
         } else {
-            generateCorrectAnswer(notes);
-            notes.splice(correctRNG, 1);
+            let generated = generateCorrectAnswer(notes);
+            console.log(generated);
+            answersArray.push(generated);
+            notes.splice(generated.id - 1, 1);
         }
 
         for (let i = 0; i < 3; i++) {
