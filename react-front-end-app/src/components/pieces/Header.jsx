@@ -44,7 +44,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewMo
                                 const { link, text } = route;
                                 return (
                                     <Link to={link}>
-                                        <Button text={text}/>
+                                        <Button 
+                                            text={text}
+                                            onClick={() => {
+                                                setHamburgerIsOpen(false);
+                                            }}
+                                        />
                                     </Link>
                                 );
                             })}

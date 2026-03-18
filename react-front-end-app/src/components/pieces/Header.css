@@ -130,6 +130,10 @@ header {
         font-style: normal;
     }
 
+    #hamburger-menu-items button:hover {
+        background-color: rgb(197, 197, 197);
+    }
+
     a {
         text-decoration: none;
     }
