@@ -39,24 +39,19 @@ const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
 
     return (
         <>
-            <li 
-            id={noteId}
-            >
-                <div id="user-note-item"
-                hidden={listItemVisible}
+            <li id={noteId}>
+                <div 
+                    id="user-note-item"
+                    hidden={listItemVisible}
                 >{noteContent}</div>
-                <div
-                hidden={!listItemVisible}
-                >
+                <div hidden={!listItemVisible}>
                     <textarea 
                         id="user-note-edit-body"
                         value={noteContent}
                         required
                         onChange={(e) => handleChange(setNoteContent, e.target.value)}>
                     </textarea>
-                    <div   
-                        hidden={!listItemVisible}
-                    >
+                    <div hidden={!listItemVisible}>
                         {`${noteContent.length}/250 ${noteContent.length > 250 ? 'Too long!' : ''}`}
                     </div>
                 </div>

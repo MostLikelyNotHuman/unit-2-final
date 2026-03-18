@@ -1,6 +1,4 @@
-import { useFormState } from "react-dom";
 import QuizBoxNotes from "./pieces/QuizBoxNotes";
-// import { notes } from "../assets/notes";
 import { useEffect, useState, useRef } from "react";
 
 const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
@@ -22,7 +20,6 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
     }
 
     async function retrieveQuestion() {
-
         let answersArray = [];
 
         let notes = await fetch("http://localhost:8080/notes")
@@ -52,21 +49,14 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
         }
 
         for (let i = 0; i < 3; i++) {
-                    // generates three incorrect answers
             let incorrectRNG = Math.floor(Math.random() * notes.length);
-                    // - generates random number between 0 and length of edited notes array
             let incorrectAnswer = notes[incorrectRNG];
-                    // - selects incorrect answer by index with random number
             answersArray.push(incorrectAnswer);    
-                    // - adds incorrect answer to the answers array shown to the user        
             notes.splice(incorrectRNG, 1);
-                    // - removes incorrect answer from edited array
-            }
+        }
+
         answersArray.sort(() => Math.random() - 0.5);
-            // random sort answers
-        setAnswers(answersArray);
-                // setanswers usestate
-        
+        setAnswers(answersArray);        
     }
     
     useEffect(() => {
@@ -95,8 +85,7 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
                     setSelected(null);
                     retrieveQuestion();
                     setAnswerDisabled(false)
-                    }
-                }
+                }}
             />
         </main>
     );

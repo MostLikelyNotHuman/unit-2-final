@@ -5,7 +5,7 @@ import { routes } from "./Routes";
 import Hamburger from "hamburger-react";
 import { useState } from "react";
 
-const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, setReviewModeText }) => {
 
     const [ hamburgerIsOpen, setHamburgerIsOpen ] = useState(false);
 
@@ -62,7 +62,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn, reviewMode, setReviewMode, reviewMo
                                         !isLoggedIn ? setIsLoggedIn(true) : setIsLoggedIn(false);
                                         reviewMode && setReviewMode(false);
                                         setReviewModeText("Review Mode OFF");
-                                }}/>
+                                    }}
+                                />
                             </div>
                         </div>
                     )}

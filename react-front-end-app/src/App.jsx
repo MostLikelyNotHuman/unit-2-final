@@ -9,7 +9,6 @@ import Header from './components/pieces/Header';
 import Footer from './components/pieces/Footer';
 import ContactPage from './components/ContactPage';
 import { useState } from 'react';
-// import LoginPage from './components/LoginPage';
 
 function App() {
 

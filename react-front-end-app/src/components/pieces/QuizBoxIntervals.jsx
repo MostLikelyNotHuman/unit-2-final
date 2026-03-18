@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css';
 
-const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, intervalsReview, setIntervalsReview, nextClick, isLoggedIn }) => {
+const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, nextClick, isLoggedIn }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
@@ -28,7 +28,8 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                 })}
             </div>
             <div id="next-div">
-                <Button onClick={() => {
+                <Button 
+                    onClick={() => {
                     if(isLoggedIn) {
                         const userReviewIntervals = fetch("http://localhost:8080/users/1/intervals")
                             .then(function(response) {
@@ -48,8 +49,7 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                                 }
                             })
                         }
-                    }
-                } 
+                    }} 
                 id={'add-review-button'}
                 text={'Add to Review'}/>
                 <Button onClick={() => {
@@ -83,8 +83,7 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                                 setAnswerDisabled(true);
                                 setNextDisabled(false);
                                 setNextId('next-button')
-                                }
-                            }
+                            }}
                         />
                     );
                 })}

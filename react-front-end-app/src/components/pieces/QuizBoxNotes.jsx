@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css'
 
-const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
+const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, nextClick, isLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
@@ -87,9 +87,8 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                                     })
                                 }
                             })
-                        }
                     }
-                } 
+                }} 
                 id={'add-review-button'}
                 text={'Add to Review'}/>
                 <Button onClick={() => {
@@ -123,8 +122,7 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                                 setAnswerDisabled(true);
                                 setNextDisabled(false);
                                 setNextId('next-button')
-                                }
-                            }
+                            }}
                         />
                     );
                 })}
