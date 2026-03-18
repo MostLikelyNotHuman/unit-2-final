@@ -17,57 +17,67 @@ const IntervalPractice = ({ intervalsReview, setIntervalsReview, isLoggedIn }) =
         let images = [];
         let answersArray = [];
         correctAnswer.current = '';
+        let notes;
+        let intervals;
 
-        let notes = await fetch("http://localhost:8080/notes")
-            .then(function(response) {
-                return response.json();
-            })
+        try {
+            let notesData = await fetch("http://localhost:8080/notes");
+            if (!notesData.ok) {
+                throw new Error("Error - Could not fetch notes.");
+            } else {
+                notes = await notesData.json();
+            }
 
             // Grab two note objects to compare
-        for (let i = 0; i < 2; i++) {
-            const correctRNG = Math.floor(Math.random() * notes.length);
-            const newNote = notes[correctRNG];
-            notes.splice(correctRNG, 1);
-            valueCompare.push(newNote);
-            images.push(newNote.imageURL);
-        }
+            for (let i = 0; i < 2; i++) {
+                const correctRNG = Math.floor(Math.random() * notes.length);
+                const newNote = notes[correctRNG];
+                notes.splice(correctRNG, 1);
+                valueCompare.push(newNote);
+                images.push(newNote.imageURL);
+            }
 
             // Reverse array for proper formatting in quizbox
-        if (valueCompare[0].pitch < valueCompare[1].pitch) {
-            images.reverse();
-        }
-
-        setQuestionImage(images);
-        correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
-
-        let intervals = await fetch("http://localhost:8080/intervals")
-            .then(function(response) {
-                return response.json();
-            })
-
-        intervals.splice(0,1);
-
-        // Assigning correct object to correctAnswer and correctAnswerObject to pass down
-        for (let i = 0; i < intervals.length; i++) {            
-            if (intervals[i].size === correctValue) {
-                answersArray.push(intervals[i]);
-                correctAnswer.current = intervals[i].name;
-                setCorrectAnswerObject(intervals[i]);
-                intervals.splice(i, 1);
-                break;
+            if (valueCompare[0].pitch < valueCompare[1].pitch) {
+                images.reverse();
             }
-        }
 
-        // Generate incorrect answers
-        for (let i = 0; i < 3; i++) {
-            let incorrectRNG = Math.floor(Math.random() * intervals.length);
-            let incorrectAnswer = intervals[incorrectRNG];
-            answersArray.push(incorrectAnswer);            
-            intervals.splice(incorrectRNG, 1);
-        }
+            setQuestionImage(images);
+            correctValue = Math.abs(valueCompare[0].pitch - valueCompare[1].pitch);
 
-        answersArray.sort(() => Math.random() - 0.5);
-        setAnswers(answersArray); 
+            let intervalsData = await fetch("http://localhost:8080/intervals")
+            if (!intervalsData.ok) {
+                throw new Error("Error - Could not fetch intervals.");
+            } else {
+                intervals = await intervalsData.json();
+                intervals.splice(0,1);
+            }
+            
+            // Assigning correct object to correctAnswer and correctAnswerObject to pass down
+            for (let i = 0; i < intervals.length; i++) {            
+                if (intervals[i].size === correctValue) {
+                    answersArray.push(intervals[i]);
+                    correctAnswer.current = intervals[i].name;
+                    setCorrectAnswerObject(intervals[i]);
+                    intervals.splice(i, 1);
+                    break;
+                }
+            }
+            
+            // Generate incorrect answers
+            for (let i = 0; i < 3; i++) {
+                let incorrectRNG = Math.floor(Math.random() * intervals.length);
+                let incorrectAnswer = intervals[incorrectRNG];
+                answersArray.push(incorrectAnswer);            
+                intervals.splice(incorrectRNG, 1);
+            }
+    
+            answersArray.sort(() => Math.random() - 0.5);
+            setAnswers(answersArray); 
+
+        } catch (error) {
+            console.log(error);
+        }
     }
     
     useEffect(() => {
