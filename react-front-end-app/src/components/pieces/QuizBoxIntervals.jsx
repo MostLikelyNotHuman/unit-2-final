@@ -63,30 +63,33 @@ const QuizBoxIntervals = ({ questionText, questionImage, answers, correctAnswer,
                 text={"New Question ->"}/>
             </div>
             <div id="question-answers">
-               {answers.map((a) => { //Maps four answers, adds styling for correct and incorrect answers once clicked on
-                    let className = "answer";
+                {answers.length === 4 ?
+                    answers.map((a) => { //Maps four answers, adds styling for correct and incorrect answers once clicked on
+                        let className = "answer";
 
-                    if (selected) {
-                        if (a.name === correctAnswer) className += "-correct";
-                        else if (a === selected) className += "-incorrect";
-                    }
+                        if (selected) {
+                            if (a.name === correctAnswer) className += "-correct";
+                            else if (a === selected) className += "-incorrect";
+                        }
 
-                    return (
-                        <Button
-                            key={a.id}
-                            id={a.id}
-                            text={a.name}
-                            className={className}
-                            disabled={answerDisabled}
-                            onClick={() => {
-                                onSelect(a);
-                                setAnswerDisabled(true);
-                                setNextDisabled(false);
-                                setNextId('next-button')
-                            }}
-                        />
-                    );
-                })}
+                        return (
+                            <Button
+                                key={a.id}
+                                id={a.id}
+                                text={a.name}
+                                className={className}
+                                disabled={answerDisabled}
+                                onClick={() => {
+                                    onSelect(a);
+                                    setAnswerDisabled(true);
+                                    setNextDisabled(false);
+                                    setNextId('next-button')
+                                }}
+                            />
+                        );
+                    })
+                    :<p>Error generating answers. Try refreshing.</p>
+                }
             </div>
         </div>
     );

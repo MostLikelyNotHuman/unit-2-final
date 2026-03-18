@@ -33,11 +33,13 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
                 notes.splice((notes.length-1), 1);
             }
     
+            //Review mode generator
             if (reviewMode && isLoggedIn) {
                 let reviewModeNotesData = await fetch("http://localhost:8080/users/1/notes")
                 if (!reviewModeNotesData.ok) {
                     throw new Error("Error - Could not fetch review notes.");
                 } else {
+                    //Selects review mode item and removes it from standard notes array
                     reviewModeNotes = await reviewModeNotesData.json();
                     let generated = generateCorrectAnswer(reviewModeNotes);
                     for (let i = 0; i < notes.length; i++) {
@@ -54,7 +56,8 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
                 answersArray.push(generated);
                 notes.splice(generated.id - 1, 1);
             }
-    
+
+            //Generating incorrect answers
             for (let i = 0; i < 3; i++) {
                 let incorrectRNG = Math.floor(Math.random() * notes.length);
                 let incorrectAnswer = notes[incorrectRNG];
