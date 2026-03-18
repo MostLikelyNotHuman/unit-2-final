@@ -134,15 +134,19 @@ const ReviewPage = ({ reviewNotes, setReviewNotes, reviewIntervals, setReviewInt
                         </div>
                         : <p>Use this space to save any personal notes you might want to keep around, like musical ideas or practice methods!</p>           
                     }
-                    <input
-                        type="text" 
+                    <textarea 
+                        id="user-note-add-body"
                         value={newUserNote}
-                        id="user-note-body"
-                        onChange={(e) => handleChange(setNewUserNote, e.target.value)}
-                    />
+                        placeholder="Write a new note, 250 characters or fewer..."
+                        required
+                        onChange={(e) => handleChange(setNewUserNote, e.target.value)}>
+                    </textarea>
+                    <div id="user-note-add-character-count">
+                        <p>{`${newUserNote.length}/250 ${newUserNote.length > 250 ? 'Too long!' : ''}`}</p>
+                    </div>
                     <Button 
                         onClick={async() => {
-                            if (newUserNote) {
+                            if (newUserNote && newUserNote.length <= 250) {
                                 const newNote = await fetch("http://localhost:8080/users/1/user-notes", {
                                     method: "POST",
                                     body: JSON.stringify({
