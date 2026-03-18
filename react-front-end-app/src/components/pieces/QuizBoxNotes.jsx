@@ -2,13 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import './QuizBoxNew.css'
 
-const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn, reviewMode, setReviewMode }) => {
+const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, correctAnswerObject, selected, onSelect, notesReview, setNotesReview, nextClick, isLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
 
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
     const [ nextDisabled, setNextDisabled ] = useState(true);
     const [ nextId, setNextId ] = useState('next-button-disabled');
-    const [ reviewModeText, setReviewModeText ] = useState('');
-
 
     const reviewModeFirstLoad = () => {
         if (isLoggedIn) {

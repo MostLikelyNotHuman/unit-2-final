@@ -3,7 +3,7 @@ import QuizBoxNotes from "./pieces/QuizBoxNotes";
 // import { notes } from "../assets/notes";
 import { useEffect, useState, useRef } from "react";
 
-const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, setReviewMode }) => {
+const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, setReviewMode, reviewModeText, setReviewModeText }) => {
 
     const [ questionImage, setQuestionImage ] = useState(null);
     const [ answers, setAnswers ] = useState([]);
@@ -91,6 +91,8 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, set
                 isLoggedIn={isLoggedIn}
                 reviewMode={reviewMode}
                 setReviewMode={setReviewMode}
+                reviewModeText={reviewModeText}
+                setReviewModeText={setReviewModeText}
                 nextClick={() => {
                     setSelected(null);
                     retrieveQuestion();
