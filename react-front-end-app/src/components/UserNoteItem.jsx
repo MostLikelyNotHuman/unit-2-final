@@ -48,11 +48,17 @@ const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
                 <div
                 hidden={!listItemVisible}
                 >
-                    <input type="text" 
-                    value={noteContent}
-                    id="user-note-edit-body"
-                    onChange={(e) => handleChange(setNoteContent, e.target.value)}
-                    />
+                    <textarea 
+                        id="user-note-edit-body"
+                        value={noteContent}
+                        required
+                        onChange={(e) => handleChange(setNoteContent, e.target.value)}>
+                    </textarea>
+                    <div   
+                        hidden={!listItemVisible}
+                    >
+                        {`${noteContent.length}/250 ${noteContent.length > 250 ? 'Too long!' : ''}`}
+                    </div>
                 </div>
 
                 <Button
@@ -60,9 +66,11 @@ const UserNoteItem = ({ userNote, setUserNotes, noteId}) => {
                     text={editButtonText}
                     onClick={() => {
                         if(listItemVisible) {
-                            setListItemVisible(false);
-                            setEditButtonText("Edit");
-                            updateNote();
+                            if (noteContent.length <= 250) {
+                                setListItemVisible(false);
+                                setEditButtonText("Edit");
+                                updateNote();
+                            }
                         } else {
                             setListItemVisible(true);
                             setEditButtonText("Save");

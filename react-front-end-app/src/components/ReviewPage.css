@@ -26,3 +26,14 @@ button:hover {
 #user-note-item {
     overflow-wrap: break-word;
 }
+
+#user-note-edit-body, #user-note-add-body {
+    font-size: 20px;
+    outline-style: solid;
+    outline-color: rgb(206, 221, 255);
+    outline-width: 2px;
+}
+
+#user-note-add-body {
+    margin-top: 20px;
+}
