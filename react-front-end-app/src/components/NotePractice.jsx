@@ -3,7 +3,7 @@ import QuizBoxNotes from "./pieces/QuizBoxNotes";
 // import { notes } from "../assets/notes";
 import { useEffect, useState, useRef } from "react";
 
-const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
+const NotePractice = ({ notesReview, setNotesReview, isLoggedIn, reviewMode, setReviewMode }) => {
 
     const [ questionImage, setQuestionImage ] = useState(null);
     const [ answers, setAnswers ] = useState([]);
@@ -11,7 +11,6 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
     const [ correctAnswerObject, setCorrectAnswerObject ] = useState([]);
     const [ selected, setSelected ] = useState(null);
     const [ answerDisabled, setAnswerDisabled ] = useState(false);
-    const [ reviewMode, setReviewMode ] = useState(false);
       
     const generateCorrectAnswer = (notes) => {
         let correctRNG = Math.floor(Math.random() * notes.length);
@@ -34,7 +33,7 @@ const NotePractice = ({ notesReview, setNotesReview, isLoggedIn }) => {
         // console.log(notes);
         notes.splice((notes.length-1), 1);
 
-        if (reviewMode) {
+        if (reviewMode && isLoggedIn) {
             let reviewModeNotes = await fetch("http://localhost:8080/users/1/notes")
                 .then(function(response) {
                     return response.json();

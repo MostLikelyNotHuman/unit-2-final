@@ -9,7 +9,23 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
     const [ nextId, setNextId ] = useState('next-button-disabled');
     const [ reviewModeText, setReviewModeText ] = useState('');
 
-    async function updateReviewMode() {
+
+    const reviewModeFirstLoad = () => {
+        if (isLoggedIn) {
+            if (reviewMode) {
+                setReviewModeText("Review Mode ON");
+                console.log("review mode on")
+            } else {
+                setReviewModeText("Review Mode OFF");
+                console.log("review mode off")
+            }
+        } else {
+            setReviewModeText("Review Mode OFF");
+            console.log('not logged in');
+        }
+    }
+
+    async function updateReviewModeButton() {
         if (isLoggedIn) {
             if (!reviewMode) {
                 const reviewModeNotes = await fetch ("http://localhost:8080/users/1/notes")
@@ -38,11 +54,8 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
     }
 
     useEffect(() => {
-        updateReviewMode();
+        reviewModeFirstLoad();
     }, []);
-
-
-    console.log(isLoggedIn);
 
     return(
         <div id='quizBox'>
@@ -56,7 +69,7 @@ const QuizBoxNotes = ({ questionText, questionImage, answers, correctAnswer, cor
                         text={reviewModeText}
                         id={"notes-title-toggle"}
                         onClick={() => {
-                            updateReviewMode();
+                            updateReviewModeButton();
                         }}
                     />
                 }

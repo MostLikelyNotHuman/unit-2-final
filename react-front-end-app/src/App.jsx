@@ -16,6 +16,7 @@ function App() {
   const [ reviewNotes, setReviewNotes ] = useState([]);
   const [ reviewIntervals, setReviewIntervals ] = useState([]);
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ reviewMode, setReviewMode ] = useState(false);
 
   return (
     <>
@@ -25,7 +26,9 @@ function App() {
         <Route path="/practice-notes" element={<NotePractice 
           notesReview={reviewNotes}
           setNotesReview={setReviewNotes}
-          isLoggedIn={isLoggedIn}/>} />
+          isLoggedIn={isLoggedIn}
+          reviewMode={reviewMode}
+          setReviewMode={setReviewMode}/>} />
         <Route path="/practice-intervals" element={<IntervalPractice 
           intervalsReview={reviewIntervals}
           setIntervalsReview={setReviewIntervals}
