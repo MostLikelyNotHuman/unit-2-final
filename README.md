@@ -5,12 +5,46 @@
 <h2>Technologies Used</h2>
 <ul>
   <li><strong>Front End:</strong> JavaScript, HTML, CSS | ReactJS</li>
-  <li><strong>Back End:</strong> Java | MySQL</li>
+  <li><strong>Back End:</strong> Java | Spring Boot | MySQL</li>
 </ul>
 
 <h2>Installation Instructions</h2>
 
 <strong>Important! Before you begin, ensure you have the following properly installed:</strong>
+<ul>
+  <li>Node.js</li>
+  <li>npm</li>
+  <li>Java Development Kit (JDK) 21</li>
+  <li>IntelliJ IDEA</li>
+  <li>Visual Studio Code</li>
+  <li>MySQL Server</li>
+  <li>MySQL Workbench</li>
+</ul>
+
+<h3>Setting up the Back End</h3>
+<ol>
+  <li><strong>Clone this project:</strong> Navigate through the terminal to where you'd wish to keep the project. Run this command:
+    <pre><code>git clone https://github.com/MostLikelyNotHuman/unit-2-final</code></pre>    
+  </li>
+  <li><strong>Create database:</strong> Open MySQL Workbench and create a new database named <code>unit-2-final</code></li>
+  <li><strong>Set up .env:</strong>Create and configure an .env file at <code>java-spring-boot-back-end-app</code>:
+    <pre><code>
+      DB_URL=jdbc:mysql://localhost:3306/unit-2-final
+      DB_USERNAME=root
+      DB_PASSWORD=[your password]
+    </code></pre>
+  </li>
+  <li><strong>Run Java/Spring Boot application:</strong> Open the <code>java-spring-boot-back-end-app</code> folder in IntelliJ, then click run</li>
+  <li><strong>Populate database:</strong> Ensure the <code>unit-2-final</code> database is selected, then load and run <code>final-project-sql.sql</code></li>
+</ol>
+
+<h3>Setting up the Front End</h3>
+
+<ol>
+  <li>Navigate to <code>react-front-end-app</code> or open said folder in VSCode</li>
+  <li>Install dependencies with <code>npm install</code> in the terminal</li>
+  <li>Run application with <code>npm run dev</code> and visit the app at <code>http://localhost:5173/</code></li>
+</ol>
 
 <h2>Digital Wireframes</h2>
 
