@@ -12,7 +12,22 @@
 
 <strong>Important! Before you begin, ensure you have the following properly installed:</strong>
 
+<h2>Digital Wireframes</h2>
 
+<strong>Desktop</strong>
+<img 
+  src="https://ibb.co/KjdgFS3q"
+  alt="Set of desktop wireframes" />
+
+<strong>Mobile</strong>
+<img 
+  src="https://ibb.co/tTNkf31J"
+  alt="Set of mobile wireframes" />
+
+<h2>Entity Relationship Diagram</h2>
+<img
+  src="https://ibb.co/fdqX7rFy"
+  alt="Entity relationship diagram of User and Note, Interval, and User Note objects" />
 
 <h2>Known Issues</h2>
 <ul>
@@ -29,13 +44,6 @@
   <li><strong>Rhythm Practice:</strong> Requires completion of full audio implementation. Quiz user with audio sequence, they must select the answer that displays the correct rhythm.</li>
   <li><strong>User Accounts:</strong> Create, update username/password, or delete user accounts. Implementation of JWT verification.</li>
 </ul>
-
-
-
-
-
-
-
 
 
 
