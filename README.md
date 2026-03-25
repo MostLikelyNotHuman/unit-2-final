@@ -16,17 +16,19 @@
 
 <strong>Desktop</strong>
 <img 
-  src="https://ibb.co/KjdgFS3q"
+  src="github-images/unit-2-final-wireframe-desktop.jpg"
   alt="Set of desktop wireframes" />
 
 <strong>Mobile</strong>
+<br>
 <img 
-  src="https://ibb.co/tTNkf31J"
-  alt="Set of mobile wireframes" />
+  src="github-images/unit-2-final-wireframe-mobile.jpg"
+  alt="Set of mobile wireframes"
+  height="800px"/>
 
 <h2>Entity Relationship Diagram</h2>
 <img
-  src="https://ibb.co/fdqX7rFy"
+  src="github-images/ERD.jpg"
   alt="Entity relationship diagram of User and Note, Interval, and User Note objects" />
 
 <h2>Known Issues</h2>
