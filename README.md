@@ -27,21 +27,22 @@
     <pre><code>git clone https://github.com/MostLikelyNotHuman/unit-2-final</code></pre>    
   </li>
   <li><strong>Create database:</strong> Open MySQL Workbench and create a new database named <code>unit-2-final</code></li>
-  <li><strong>Set up .env:</strong>Create and configure an .env file at <code>java-spring-boot-back-end-app</code>:
+  <li><strong>Set up .env:</strong> Create and configure an .env file at <code>java-spring-boot-back-end-app</code>:
     <pre><code>
       DB_URL=jdbc:mysql://localhost:3306/unit-2-final
       DB_USERNAME=root
       DB_PASSWORD=[your password]
     </code></pre>
   </li>
-  <li><strong>Run Java/Spring Boot application:</strong> Open the <code>java-spring-boot-back-end-app</code> folder in IntelliJ, then click run</li>
-  <li><strong>Populate database:</strong> Ensure the <code>unit-2-final</code> database is selected, then load and run <code>final-project-sql.sql</code></li>
+  <li><strong>Set up new configuration:</strong> Open <code>java-spring-boot-back-end-app</code> in IntelliJ. Where it says 'Current File' at the top, click 'edit configurations'. Create a new application configuration and select <code>Unit2FinalApplication</code> as the main class and your <code>.env</code> file as the environment variables.
+  <li><strong>Run Java/Spring Boot application:</strong> Click run.</li>
+  <li><strong>Populate database:</strong> In MySQL Workbench, ensure the <code>unit-2-final</code> database is selected then load and run <code>final-project-sql.sql</code></li>
 </ol>
 
 <h3>Setting up the Front End</h3>
 
 <ol>
-  <li>Navigate to <code>react-front-end-app</code> or open said folder in VSCode</li>
+  <li>Navigate to <code>react-front-end-app</code> in the terminal or open said folder in VSCode</li>
   <li>Install dependencies with <code>npm install</code> in the terminal</li>
   <li>Run application with <code>npm run dev</code> and visit the app at <code>http://localhost:5173/</code></li>
 </ol>
